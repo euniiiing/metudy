@@ -32,5 +32,6 @@
             "@style/*": ["src/style/*"],
             "@utils/*": ["src/utils/*"]
         }
-    }
+    },
+    "include": ["src"]
 }
