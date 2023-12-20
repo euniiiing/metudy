@@ -1,8 +1,6 @@
-import { RefObject, useEffect, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 
-import userImg from "../assets/images/Adam_run.png";
-const imageObj = new Image();
-imageObj.src = userImg;
+import Player from "@canvas/player";
 
 interface Props {
     canvasRef: HTMLCanvasElement | null;
@@ -15,27 +13,39 @@ type ReturnTypes = [() => void];
  *  3. canvas resize에 반응
  */
 const usePlayer = (canvasRef: RefObject<HTMLCanvasElement> | null): ReturnTypes => {
-    const [playerInfo, setPlayerInfo] = useState();
+    const player = useRef<Player | null>(null);
+    const idx = useRef<number>(0);
 
     const initPlayer = () => {
-        if (!canvasRef?.current) return;
-        const context = canvasRef?.current.getContext("2d");
-        context?.drawImage(
-            imageObj,
-            (imageObj.width / 24) * 6,
-            0,
-            imageObj.width / 24,
-            imageObj.height,
-            100,
-            100,
-            (imageObj.width / 24) * 1.5,
-            imageObj.height * 1.5
-        );
+        if (!player || !canvasRef) return;
+        player.current = new Player(canvasRef);
     };
-
+    canvasRef?.current?.getContext("2d");
     useEffect(() => {
-        console.log(canvasRef?.current?.width);
-    }, [canvasRef]);
+        // function isKeyType(arg: string): number {
+        //     return ['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].findIndex((type) => type === arg);
+        // }
+        // const onKeydown = (e: KeyboardEvent) => {
+        //     const keyIdx = isKeyType(e.code);
+        //     if (this.timerId || keyIdx === -1) return;
+        //     this.sy = keyIdx + 4;
+        //     this.keysPressed[e.code] = true;
+        //     this.timerId = setInterval(() => {
+        //         this.sx += 1;
+        //         if (this.sx === 8) this.sx = 0;
+        //         this.animate(this.canvas.getContext('2d'));
+        //     }, this.velocity);
+        // };
+        // const onKeyup = (e: KeyboardEvent) => {
+        //     console.log(this.timerId);
+        //     if (isKeyType(e.code) !== -1) {
+        //         clearInterval(this.timerId);
+        //         this.timerId = null;
+        //         this.sx = 0;
+        //         this.keysPressed[e.code] = false;
+        //     }
+        // };
+    }, [canvasRef, idx]);
 
     return [initPlayer];
 };

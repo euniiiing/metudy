@@ -18,7 +18,7 @@ const Main: FC = () => {
 
         window.addEventListener("resize", () => {
             initCanvas();
-            initPlayer();
+            initPlayer(); // TODO: 초기화 최소화
         });
     }, [initCanvas, initPlayer]);
 
