@@ -2,16 +2,13 @@ import React, { PropsWithChildren, useEffect } from "react";
 import styled from "styled-components";
 
 interface StyleProps {
+    top?: string;
+    left?: string;
     width?: string;
     height?: string;
     backgroundcolor?: string;
-    color?: string;
     borderRadius?: string;
     padding?: string;
-    fontSize?: string;
-    hoverBackgroundColor?: string;
-    hoverColor?: string;
-    disabled?: boolean;
     $ismodalon?: boolean;
 }
 
@@ -23,12 +20,15 @@ const Modal = ({ children, ...props }: PropsWithChildren<Props>) => {
 
 const ModalLayout = styled("button")<StyleProps>`
     display: ${({ $ismodalon }) => ($ismodalon ? "block" : "none")};
-    background-color: pink;
     position: absolute;
+    background-color: ${({ backgroundcolor }) => backgroundcolor || "transparent"};
+    top: ${({ top }) => top || "50%"};
+    left: ${({ left }) => left || "50%"};
     width: ${({ width }) => width || "200px"};
-    height: 100px;
-    top: calc(100vh - 50% - 100px);
-    left: calc(100vw - 50% - 100px);
+    height: ${({ height }) => height || "200px"};
+    padding: ${({ padding }) => padding || 0};
+    border-radius: ${({ borderRadius }) => borderRadius ?? 0};
+    transform: translate(-50%, -50%);
 `;
 
 export default Modal;
