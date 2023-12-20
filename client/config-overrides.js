@@ -17,5 +17,7 @@ module.exports = override(
         "@types": path.resolve(__dirname, "src/types"),
         "@style": path.resolve(__dirname, "src/style"),
         "@utils": path.resolve(__dirname, "src/utils"),
+        "@assets": path.resolve(__dirname, "src/assets"),
+        "@canvas": path.resolve(__dirname, "src/canvas"),
     })
 );

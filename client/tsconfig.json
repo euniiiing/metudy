@@ -30,7 +30,9 @@
             "@store/*": ["src/store/*"],
             "@types/*": ["src/types/*"],
             "@style/*": ["src/style/*"],
-            "@utils/*": ["src/utils/*"]
+            "@utils/*": ["src/utils/*"],
+            "@assets/*": ["src/assets/*"],
+            "@canvas/*": ["src/canvas/*"]
         }
     },
     "include": ["src"]
