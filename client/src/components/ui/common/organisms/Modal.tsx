@@ -18,17 +18,19 @@ const Modal = ({ children, ...props }: PropsWithChildren<Props>) => {
     return <ModalLayout {...props}>{children}</ModalLayout>;
 };
 
-const ModalLayout = styled("button")<StyleProps>`
-    display: ${({ $ismodalon }) => ($ismodalon ? "block" : "none")};
+const ModalLayout = styled("div")<StyleProps>`
+    display: ${({ $ismodalon }) => ($ismodalon ? "flex" : "none")};
     position: absolute;
-    background-color: ${({ backgroundcolor }) => backgroundcolor || "transparent"};
+    background-color: ${({ backgroundcolor }) => backgroundcolor || "black"};
     top: ${({ top }) => top || "50%"};
     left: ${({ left }) => left || "50%"};
-    width: ${({ width }) => width || "200px"};
-    height: ${({ height }) => height || "200px"};
+    width: ${({ width }) => width || 0};
+    height: ${({ height }) => height || 0};
     padding: ${({ padding }) => padding || 0};
     border-radius: ${({ borderRadius }) => borderRadius ?? 0};
     transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
 `;
 
 export default Modal;
