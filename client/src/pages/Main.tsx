@@ -10,13 +10,17 @@ const Main: FC = () => {
         if (!canvasRef.current) return;
         canvasRef.current.width = window.innerWidth;
         canvasRef.current.height = window.innerHeight;
-        initPlayer();
-    }, [initPlayer]);
+    }, []);
 
     useEffect(() => {
         initCanvas();
-        window.addEventListener("resize", () => initCanvas());
-    }, [initCanvas]);
+        initPlayer();
+
+        window.addEventListener("resize", () => {
+            initCanvas();
+            initPlayer();
+        });
+    }, [initCanvas, initPlayer]);
 
     return <canvas ref={canvasRef} style={{ width: "100vw", height: "100vh" }} />;
 };
