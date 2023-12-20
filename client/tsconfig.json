@@ -32,7 +32,8 @@
             "@style/*": ["src/style/*"],
             "@utils/*": ["src/utils/*"],
             "@assets/*": ["src/assets/*"],
-            "@canvas/*": ["src/canvas/*"]
+            "@canvas/*": ["src/canvas/*"],
+            "@common/*": ["src/components/ui/common/*"]
         }
     },
     "include": ["src"]

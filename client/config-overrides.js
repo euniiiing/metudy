@@ -19,5 +19,6 @@ module.exports = override(
         "@utils": path.resolve(__dirname, "src/utils"),
         "@assets": path.resolve(__dirname, "src/assets"),
         "@canvas": path.resolve(__dirname, "src/canvas"),
+        "@common": path.resolve(__dirname, "src/components/ui/common"),
     })
 );
