@@ -1,5 +1,5 @@
 import React from "react";
-import PostingForm from "@molecules/PostingForm";
+import PostingForm from "@/components/feeds/PostingForm";
 
 const MyFeeds = () => {
     return <PostingForm />;

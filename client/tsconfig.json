@@ -33,7 +33,7 @@
             "@utils/*": ["src/utils/*"],
             "@assets/*": ["src/assets/*"],
             "@canvas/*": ["src/canvas/*"],
-            "@common/*": ["src/components/ui/common/*"]
+            "@common/*": ["src/components/common/*"]
         }
     },
     "include": ["src"]

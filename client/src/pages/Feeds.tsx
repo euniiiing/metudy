@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import MyFeeds from "@organisms/MyFeeds";
-import Timeline from "@organisms/Timeline";
-import { postsState } from "@store/feeds/posts";
+import MyFeeds from "@/components/feeds/MyFeeds";
+import Timeline from "@/components/feeds/Timeline";
+import { postsState } from "@/store/atoms/posts";
 import { useRecoilState } from "recoil";
 
 const Feeds = () => {

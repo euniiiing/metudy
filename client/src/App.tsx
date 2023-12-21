@@ -2,23 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import Main from "@pages/Main";
-import Modal from "@common/organisms/Modal";
+import Modal from "@/components/common/Modal";
 import Feeds from "@pages/Feeds";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-    const [isModalOn, setIsModalOn] = useState<boolean>(true);
-    const modalBtn = () => {
-        console.log("modal-on");
-        setIsModalOn(!isModalOn);
-    };
     return (
         <RecoilRoot>
-            {/* <Modal $ismodalon={isModalOn} width="500px" height="90vh">
-                <Feeds />
-            </Modal> */}
-            {/* <Button onClick={modalBtn}>modal on</Button> */}
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Main />} />

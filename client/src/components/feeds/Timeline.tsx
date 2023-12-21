@@ -3,8 +3,8 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import axios from "axios";
 
-import PostContent from "@molecules/PostContent";
-import { postsState } from "@store/feeds/posts";
+import PostContent from "@/components/feeds/PostContent";
+import { postsState } from "@/store/atoms/posts";
 
 const Timeline = () => {
     const [posts, setPosts] = useRecoilState(postsState);

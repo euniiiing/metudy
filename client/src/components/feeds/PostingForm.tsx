@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 
-import { myPostsState } from "@/store/feeds/myPosts";
+import { myPostsState } from "@/store/atoms/myPosts";
 import styled from "styled-components";
 import axios from "axios";
 
