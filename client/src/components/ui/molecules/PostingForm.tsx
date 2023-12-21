@@ -1,35 +1,41 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
 import { myPostsState } from "@/store/feeds/myPosts";
 import styled from "styled-components";
+import axios from "axios";
 
 const PostingForm = () => {
     const [isSuccessUpload, setIsSuccessUpload] = useState<boolean>(false);
-
+    const [postContent, setPostContent] = useState("hello");
     const [myPosts, setMyPosts] = useRecoilState(myPostsState);
 
-    const writeLog = (e: ChangeEvent<HTMLInputElement>) => {
-        setMyPosts({
-            id: "what",
-            content: e.target.value,
-        });
-    };
-
-    const uploadLog = () => {
-        setTimeout(() => {
-            setIsSuccessUpload(true); // 업로드 성공
-        }, 2000);
+    const uploadLog = async () => {
+        try {
+            const res = await axios.post("http://localhost:3001/posts", myPosts);
+            console.log(res.data);
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     useEffect(() => {
-        console.log(myPosts);
-    }, [myPosts]);
+        console.log(postContent);
+    }, [postContent]);
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        console.log("submit");
+    };
 
     return (
-        <PostingFormLayout>
+        <PostingFormLayout onSubmit={handleSubmit}>
             <div>Today's</div>
-            <textarea className="postingform__content__input"></textarea>
+            <textarea
+                value={postContent}
+                className="postingform__content__input"
+                onChange={(e) => setPostContent(e.target.value)}
+            ></textarea>
             <div className="postingform__actionbox">
                 <button className="postingform__upload__button" onClick={uploadLog}>
                     게시하기
@@ -39,7 +45,7 @@ const PostingForm = () => {
     );
 };
 
-const PostingFormLayout = styled.div`
+const PostingFormLayout = styled.form`
     height: 200px;
     border-bottom: 1px solid #c5c5c5;
     display: flex;

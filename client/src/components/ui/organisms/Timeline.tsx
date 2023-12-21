@@ -1,4 +1,5 @@
 import { postsState } from "@/store/feeds/posts";
+import axios from "axios";
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -6,14 +7,20 @@ import styled from "styled-components";
 const Timeline = () => {
     const [posts, setPosts] = useRecoilState(postsState);
 
+    const getData = async () => {
+        const res = await axios.get("http://localhost:3001/posts");
+        setPosts(res.data);
+        console.log(res.data);
+    };
+
     useEffect(() => {
-        console.log("timeline");
+        getData();
     }, []);
 
     return (
         <TimelineLayout>
-            {posts.map((post) => {
-                return <TestPost>{post.content}</TestPost>;
+            {posts.map((post, idx) => {
+                return <TestPost key={idx}>{post.content}</TestPost>;
             })}
         </TimelineLayout>
     );

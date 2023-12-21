@@ -1,0 +1,69 @@
+{
+    "posts": [
+        {
+            "id": "소금",
+            "content": "소금빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "초코",
+            "content": "초코빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "소금",
+            "content": "소금빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "초코",
+            "content": "초코빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "소금",
+            "content": "소금빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "초코",
+            "content": "초코빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "소금",
+            "content": "소금빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "초코",
+            "content": "초코빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "소금",
+            "content": "소금빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "초코",
+            "content": "초코빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "소금",
+            "content": "소금빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "초코",
+            "content": "초코빵",
+            "image": "./src/assets/images/Adam_run.png"
+        },
+        {
+            "id": "seongeun",
+            "content": "",
+            "image": "./src/assets/images/Adam_run.png"
+        }
+    ]
+}

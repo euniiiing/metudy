@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 import Main from "@pages/Main";
 import Modal from "@common/organisms/Modal";
-import Feeds from "@organisms/Feeds";
+import Feeds from "@pages/Feeds";
 import { RecoilRoot } from "recoil";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
     const [isModalOn, setIsModalOn] = useState<boolean>(true);
@@ -14,11 +15,16 @@ function App() {
     };
     return (
         <RecoilRoot>
-            <Modal $ismodalon={isModalOn} width="500px" height="90vh">
+            {/* <Modal $ismodalon={isModalOn} width="500px" height="90vh">
                 <Feeds />
-            </Modal>
-            <Button onClick={modalBtn}>modal on</Button>
-            <Main />
+            </Modal> */}
+            {/* <Button onClick={modalBtn}>modal on</Button> */}
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route path="/feeds/*" element={<Feeds />} />
+                </Routes>
+            </BrowserRouter>
         </RecoilRoot>
     );
 }
