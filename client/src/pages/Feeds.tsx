@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import styled from "styled-components";
 import MyFeeds from "@/components/feeds/MyFeeds";
 import Timeline from "@/components/feeds/Timeline";
@@ -15,7 +15,10 @@ const Feeds = () => {
                     <button onClick={() => setOnMypage(false)}>group</button>
                     <button onClick={() => setOnMypage(true)}>mypage</button>
                 </FeedsHeader>
-                {onMypage ? <MyFeeds /> : <Timeline />}
+                <Suspense fallback={<>... loading</>}>
+                    {onMypage ? <MyFeeds /> : <Timeline />}
+                    <div>hello</div>
+                </Suspense>
             </div>
         </FeedsLayout>
     );
@@ -32,6 +35,9 @@ const FeedsLayout = styled.div`
     .feeds__container {
         width: 500px;
         height: 90vh;
+        padding: 1em;
+        background-color: white;
+        border-radius: 1em;
     }
 `;
 

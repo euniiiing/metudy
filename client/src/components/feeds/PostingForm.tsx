@@ -1,70 +1,41 @@
-import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useRecoilState } from "recoil";
-
-import { myPostsState } from "@/store/atoms/myPosts";
 import styled from "styled-components";
 import axios from "axios";
+import { postingFormState } from "@/store/atoms/postingForm";
 
 const PostingForm = () => {
-    const [isSuccessUpload, setIsSuccessUpload] = useState<boolean>(false);
-    const [postContent, setPostContent] = useState("hello");
-    const [myPosts, setMyPosts] = useRecoilState(myPostsState);
+    const [content, setContent] = useState("");
+    const [postContent, setPostContent] = useRecoilState(postingFormState);
 
-    const uploadLog = async () => {
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:3001/posts", myPosts);
+            const res = await axios.post("http://localhost:8080/myposts", {
+                postContent: "postContent",
+            });
             console.log(res.data);
         } catch (e) {
             console.log(e);
         }
     };
 
-    useEffect(() => {
-        console.log(postContent);
-    }, [postContent]);
-
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        console.log("submit");
-    };
-
-    const inputRef = useRef<HTMLInputElement | null>(null);
-
-    const onUploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!e.target.files) {
-            return;
-        }
-        console.log(e.target.files);
-    }, []);
-
-    const onUploadImageButtonClick = useCallback(() => {
-        if (!inputRef.current) {
-            return;
-        }
-        inputRef.current.click();
-    }, []);
-
     return (
         <PostingFormLayout onSubmit={handleSubmit}>
-            <div>Today's</div>
             <textarea
-                value={postContent}
                 className="postingform__content__input"
-                onChange={(e) => setPostContent(e.target.value)}
+                onChange={(e) => setContent(e.target.value)}
+                placeholder="오늘 하루는 어땠나요?"
             ></textarea>
             <div className="postingform__actionbox">
-                <input type="file" accept="image/*" ref={inputRef} onChange={onUploadImage} />
-                <button onClick={onUploadImageButtonClick}>upload</button>
-                <button className="postingform__upload__button" onClick={uploadLog}>
-                    게시하기
-                </button>
+                <button className="postingform__upload__button">upload</button>
             </div>
         </PostingFormLayout>
     );
 };
 
 const PostingFormLayout = styled.form`
-    height: 200px;
+    height: 180px;
     border-bottom: 1px solid #c5c5c5;
     display: flex;
     align-items: center;
@@ -73,7 +44,7 @@ const PostingFormLayout = styled.form`
 
     .postingform__content__input {
         display: block;
-        width: 90%;
+        width: 100%;
         height: 110px;
         padding: 10px;
         box-sizing: border-box;
@@ -81,7 +52,7 @@ const PostingFormLayout = styled.form`
         border-radius: 5px;
         font-size: 16px;
         border: 1px solid #c5c5c5;
-        outline-color: #fe6b8b;
+        outline-color: #ffa0b4;
     }
 
     .postingform__actionbox {
@@ -90,8 +61,21 @@ const PostingFormLayout = styled.form`
     }
 
     .postingform__upload__button {
+        cursor: pointer;
         right: 0;
         bottom: 0;
+        width: 80px;
+        height: 25px;
+        background-color: #fe6b8b;
+        color: white;
+        border: none;
+        border-radius: 1em;
+        padding-top: 2px;
+
+        &:hover {
+            background-color: gray;
+            color: black;
+        }
     }
 `;
 

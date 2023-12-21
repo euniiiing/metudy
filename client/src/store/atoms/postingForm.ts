@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { PostType } from "@/types";
 
-export const myPostsState = atom<PostType>({
+export const postingFormState = atom<PostType>({
     key: "myposts",
     default: {
         postId: "e",

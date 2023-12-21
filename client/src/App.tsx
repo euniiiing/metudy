@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import Main from "@pages/Main";
-import Modal from "@/components/common/Modal";
 import Feeds from "@pages/Feeds";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter, Route, Routes } from "react-router-dom";

@@ -1,8 +1,8 @@
 import { atom } from "recoil";
 
-import { PostType } from "@/types";
+import { IPost } from "@/api/feeds/post";
 
-export const postsState = atom<PostType[]>({
+export const postsState = atom<IPost[]>({
     key: "posts",
     default: [],
 });
