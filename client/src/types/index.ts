@@ -1,5 +1,6 @@
 export interface PostType {
-    id: string;
+    postId: string;
+    userId: string;
     content: string;
-    image: string;
+    image: string[];
 }

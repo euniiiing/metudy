@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 
 import { myPostsState } from "@/store/feeds/myPosts";
@@ -28,6 +28,22 @@ const PostingForm = () => {
         console.log("submit");
     };
 
+    const inputRef = useRef<HTMLInputElement | null>(null);
+
+    const onUploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+            return;
+        }
+        console.log(e.target.files);
+    }, []);
+
+    const onUploadImageButtonClick = useCallback(() => {
+        if (!inputRef.current) {
+            return;
+        }
+        inputRef.current.click();
+    }, []);
+
     return (
         <PostingFormLayout onSubmit={handleSubmit}>
             <div>Today's</div>
@@ -37,6 +53,8 @@ const PostingForm = () => {
                 onChange={(e) => setPostContent(e.target.value)}
             ></textarea>
             <div className="postingform__actionbox">
+                <input type="file" accept="image/*" ref={inputRef} onChange={onUploadImage} />
+                <button onClick={onUploadImageButtonClick}>upload</button>
                 <button className="postingform__upload__button" onClick={uploadLog}>
                     게시하기
                 </button>

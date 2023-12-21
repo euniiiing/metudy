@@ -1,8 +1,10 @@
-import { postsState } from "@/store/feeds/posts";
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import axios from "axios";
+
+import PostContent from "@molecules/PostContent";
+import { postsState } from "@store/feeds/posts";
 
 const Timeline = () => {
     const [posts, setPosts] = useRecoilState(postsState);
@@ -20,7 +22,7 @@ const Timeline = () => {
     return (
         <TimelineLayout>
             {posts.map((post, idx) => {
-                return <TestPost key={idx}>{post.content}</TestPost>;
+                return <PostContent key={idx} post={post} />;
             })}
         </TimelineLayout>
     );
@@ -29,12 +31,6 @@ const Timeline = () => {
 const TimelineLayout = styled.div`
     overflow: auto;
     height: calc(100% - 50px);
-`;
-
-const TestPost = styled.div`
-    background-color: aliceblue;
-    margin: 15px;
-    height: 120px;
 `;
 
 export default Timeline;

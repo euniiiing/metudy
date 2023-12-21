@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import MyFeeds from "@organisms/MyFeeds";
 import Timeline from "@organisms/Timeline";
@@ -6,7 +6,7 @@ import { postsState } from "@store/feeds/posts";
 import { useRecoilState } from "recoil";
 
 const Feeds = () => {
-    const [onMypage, setOnMypage] = useState<boolean>(true);
+    const [onMypage, setOnMypage] = useState<boolean>(false);
 
     return (
         <FeedsLayout>
@@ -27,12 +27,11 @@ const FeedsLayout = styled.div`
     align-items: center;
     width: 100vw;
     height: 100vh;
+    background-color: #f5f5f5;
 
     .feeds__container {
         width: 500px;
         height: 90vh;
-        border-radius: 17px;
-        border: 1px solid #c5c5c5;
     }
 `;
 

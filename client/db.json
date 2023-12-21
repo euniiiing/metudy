@@ -1,69 +1,128 @@
 {
     "posts": [
         {
-            "id": "소금",
-            "content": "소금빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "a",
+            "userId": "감자",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         },
         {
-            "id": "초코",
-            "content": "초코빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "b",
+            "userId": "콩나물",
+            "content": "알찼던 하루",
+            "image": []
         },
         {
-            "id": "소금",
-            "content": "소금빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "c",
+            "userId": "아이언맨",
+            "content": "행복하다",
+            "image": [
+                "./src/assets/images/Adam_run.png",
+                "./src/assets/images/Adam_run.png",
+                "./src/assets/images/Adam_run.png"
+            ]
         },
         {
-            "id": "초코",
-            "content": "초코빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         },
         {
-            "id": "소금",
-            "content": "소금빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         },
         {
-            "id": "초코",
-            "content": "초코빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         },
         {
-            "id": "소금",
-            "content": "소금빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         },
         {
-            "id": "초코",
-            "content": "초코빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         },
         {
-            "id": "소금",
-            "content": "소금빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         },
         {
-            "id": "초코",
-            "content": "초코빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         },
         {
-            "id": "소금",
-            "content": "소금빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         },
         {
-            "id": "초코",
-            "content": "초코빵",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         },
         {
-            "id": "seongeun",
-            "content": "",
-            "image": "./src/assets/images/Adam_run.png"
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
+        },
+        {
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
+        },
+        {
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
+        },
+        {
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
+        },
+        {
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
+        },
+        {
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
+        },
+        {
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
+        },
+        {
+            "postId": "d",
+            "userId": "카리나",
+            "content": "엄청 바빴던 하루",
+            "image": ["./src/assets/images/Adam_run.png"]
         }
     ]
 }
