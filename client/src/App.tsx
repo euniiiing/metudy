@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import Main from "@pages/Main";
 import Modal from "@common/organisms/Modal";
+import Feeds from "@organisms/Feeds";
+import { RecoilRoot } from "recoil";
 
 function App() {
     const [isModalOn, setIsModalOn] = useState<boolean>(true);
@@ -11,13 +13,13 @@ function App() {
         setIsModalOn(!isModalOn);
     };
     return (
-        <>
-            <Modal $ismodalon={isModalOn} width={"700px"} height="80vh">
-                <TestLayout></TestLayout>
+        <RecoilRoot>
+            <Modal $ismodalon={isModalOn} width="500px" height="90vh">
+                <Feeds />
             </Modal>
             <Button onClick={modalBtn}>modal on</Button>
             <Main />
-        </>
+        </RecoilRoot>
     );
 }
 

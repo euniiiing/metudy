@@ -21,7 +21,7 @@ const Modal = ({ children, ...props }: PropsWithChildren<Props>) => {
 const ModalLayout = styled("div")<StyleProps>`
     display: ${({ $ismodalon }) => ($ismodalon ? "flex" : "none")};
     position: absolute;
-    background-color: ${({ backgroundcolor }) => backgroundcolor || "black"};
+    background-color: ${({ backgroundcolor }) => backgroundcolor || ""};
     top: ${({ top }) => top || "50%"};
     left: ${({ left }) => left || "50%"};
     width: ${({ width }) => width || 0};
