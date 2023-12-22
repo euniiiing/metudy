@@ -1,54 +1,32 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import axios from "axios";
 
 import PostCard from "@/components/feeds/PostCard";
-import { postsState } from "@/store/atoms/posts";
-import { getGroupPosts, idxState } from "@/api/feeds/get-group-posts";
+import { getGroupPosts, feedsPageState } from "@/api/feeds/get-group-posts";
 import { IPost } from "@/api/feeds/post";
+import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 
 const Timeline = () => {
-    const [idx, setIdx] = useRecoilState(idxState);
+    const [page, setPage] = useRecoilState(feedsPageState);
     const posts: IPost[] = useRecoilValue(getGroupPosts);
-    const target = useRef(null);
+    const [data, setData] = useState<IPost[]>([]);
 
-    const observer: any = useRef();
-    const lastItemElementRef = (node: any) => {
-        // if (loading) return;
-        if (observer.current) observer.current.disconnect();
-        console.log("??");
-        observer.current = new IntersectionObserver(
-            (entries, observer) => {
-                if (entries[0].isIntersecting) {
-                    observer.unobserve(entries[0].target);
-                    console.log("hi");
-                }
-            },
-            {
-                root: null,
-                rootMargin: "0px 0px 0px 0px",
-                threshold: 1,
-            }
-        );
-        console.log(node);
-        observer.current.observe(node);
-        // if (node) observer.current.observe(node);
-    };
+    useEffect(() => {
+        if (page === 0) setData((curr: any) => [...posts]);
+        else setData((curr: any) => [...curr, ...posts]);
+    }, [page, posts]);
+
+    const handleObserved = () => setPage(page + 1);
+    const { lastItemElementRef } = useInfiniteScroll({ handleObserved });
 
     return (
         <TimelineLayout>
-            {posts.map((post, idx) => {
-                if (idx === 6) {
-                    console.log("6");
-                    return <PostCard key={idx} post={post} ref={lastItemElementRef} />;
-                    // return (
-                    //     <div className="target" ref={lastItemElementRef}>
-                    //         hihihihhihih
-                    //     </div>
-                    // );
+            {data.map((post: IPost, idx: any) => {
+                if (idx % 6 === 0) {
+                    return <PostCard key={idx} post={post} />;
                 }
-                return <PostCard key={idx} post={post} />;
+                return <PostCard key={idx} post={post} ref={lastItemElementRef} />;
             })}
         </TimelineLayout>
     );

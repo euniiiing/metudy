@@ -1,12 +1,11 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect } from "react";
 import styled from "styled-components";
 
-import { PostType } from "@/types";
 import ProfileImg from "@/assets/images/profile-img.jpg";
+import { IPost } from "@/api/feeds/post";
 
 interface Props {
-    post: PostType;
-    // ref?: React.ForwardedRef<HTMLDivElement>;
+    post: IPost;
 }
 
 const PostContent = forwardRef(({ post }: Props, ref: React.ForwardedRef<HTMLDivElement>) => {
