@@ -6,10 +6,6 @@ import { getMyPosts } from "@/api/feeds/get-my-posts";
 const MyFeeds = () => {
     const queryResults = useRecoilValue(getMyPosts);
 
-    useEffect(() => {
-        console.log(queryResults);
-    }, [queryResults]);
-
     return <PostingForm />;
 };
 

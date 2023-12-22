@@ -19,16 +19,4 @@ function App() {
     );
 }
 
-const TestLayout = styled.div`
-    width: 80%;
-    height: 90%;
-    background-color: aliceblue;
-    top: 40px;
-    left: 40px;
-`;
-
-const Button = styled.button`
-    position: absolute;
-`;
-
 export default App;
