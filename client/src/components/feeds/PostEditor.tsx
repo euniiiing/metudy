@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Todo from "@/components/todo/Todo";
+import BlockEditor from "../todo/BlockEditor";
 
 const PostEditor = () => {
     const [todoListData, setDodoListData] = useState<any[]>([
@@ -66,38 +67,12 @@ const PostEditor = () => {
     return (
         <PostEditorLayout>
             <Todo makeDiarySticker={makeDiarySticker} />
-            <BlockEditor>
-                {todoListData?.map((item, idx) => {
-                    if (item.type === "todo") {
-                        return (
-                            <StickerBlock
-                                data-index={idx}
-                                contentEditable={true}
-                                draggable={true}
-                                onKeyDown={(e: any) => focusNextLine(e)}
-                                suppressContentEditableWarning={true}
-                                onFocus={changeCaret}
-                            >
-                                {item.content}
-                            </StickerBlock>
-                        );
-                    }
-
-                    return (
-                        <TextBlock
-                            data-index={idx}
-                            contentEditable={true}
-                            draggable={true}
-                            onKeyDown={(e: any) => focusNextLine(e)}
-                            suppressContentEditableWarning={true}
-                            onFocus={changeCaret}
-                            onChange={(e: any) => setInputValue(e.target.value)}
-                        >
-                            {item.content}
-                        </TextBlock>
-                    );
-                })}
-            </BlockEditor>
+            <BlockEditor
+                todoListData={todoListData}
+                focusNextLine={focusNextLine}
+                changeCaret={changeCaret}
+                setInputValue={setInputValue}
+            />
         </PostEditorLayout>
     );
 };
@@ -106,39 +81,6 @@ const PostEditorLayout = styled.div`
     border: 1px solid #e3e3e3;
     border-radius: 1em;
     width: 100%;
-`;
-
-const TodoBox = styled.div`
-    width: 100%;
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    button {
-        width: 100px;
-    }
-`;
-
-const BlockEditor = styled.div`
-    width: 100%;
-`;
-
-const StickerBlock = styled.div`
-    box-sizing: border-box;
-    min-width: 100px;
-    height: 37px;
-    padding-top: 10px;
-    padding-left: 15px;
-    background-color: aliceblue;
-`;
-
-const TextBlock = styled.div`
-    box-sizing: border-box;
-    width: 100%;
-    height: 37px;
-    padding-top: 10px;
-    padding-left: 15px;
 `;
 
 export default PostEditor;
