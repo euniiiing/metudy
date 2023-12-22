@@ -1,14 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import Todo from "@/components/todo/Todo";
 
 const PostEditor = () => {
-    const [selectedItem, setSelectedItem] = useState<any[]>([]);
-    const [focusingIdx, setFocusingIdx] = useState<number>(0);
+    const [todoListData, setDodoListData] = useState<any[]>([
+        {
+            type: "todo",
+            content: "1",
+        },
+        {
+            type: "todo",
+            content: "2",
+        },
+        {
+            type: "todo",
+            content: "3",
+        },
+    ]);
     const caretRef = useRef<any>(undefined);
-
-    const pushItem = (e: any) => {
-        setSelectedItem((prev) => [...prev, e.target.textContent]);
-    };
+    const [inputValue, setInputValue] = useState("");
 
     const focusNextLine = (e: KeyboardEvent) => {
         // e.preventDefault(); // 자식 div 생성 === 줄 두 개
@@ -25,9 +35,14 @@ const PostEditor = () => {
             caretRef.current = selection?.anchorNode;
         }
 
-        setSelectedItem((prev) => {
+        setDodoListData((prev) => {
+            const newText = {
+                type: "text",
+                content: "",
+            };
+
             const newNodes = [...prev];
-            newNodes.splice(parseInt(caretRef.current.dataset.index) + 1, 0, "");
+            newNodes.splice(parseInt(caretRef.current.dataset.index) + 1, 0, newText);
             return newNodes;
         });
     };
@@ -36,19 +51,38 @@ const PostEditor = () => {
         if (!caretRef.current) return;
         caretRef.current = caretRef.current.nextSibling;
         caretRef.current.focus();
-    }, [selectedItem]);
+    }, [todoListData]);
 
     const changeCaret = (e: any) => {};
 
+    const makeDiarySticker = (e: any) => {
+        const newSticker = {
+            type: "todo",
+            content: e.target.textContent,
+        };
+        setDodoListData((prev) => [...prev, newSticker]);
+    };
+
     return (
-        <>
-            <TodoBox>
-                <button onClick={pushItem}>안녕</button>
-                <button onClick={pushItem}>2</button>
-                <button onClick={pushItem}>3</button>
-            </TodoBox>
+        <PostEditorLayout>
+            <Todo makeDiarySticker={makeDiarySticker} />
             <BlockEditor>
-                {selectedItem?.map((item, idx) => {
+                {todoListData?.map((item, idx) => {
+                    if (item.type === "todo") {
+                        return (
+                            <StickerBlock
+                                data-index={idx}
+                                contentEditable={true}
+                                draggable={true}
+                                onKeyDown={(e: any) => focusNextLine(e)}
+                                suppressContentEditableWarning={true}
+                                onFocus={changeCaret}
+                            >
+                                {item.content}
+                            </StickerBlock>
+                        );
+                    }
+
                     return (
                         <TextBlock
                             data-index={idx}
@@ -57,18 +91,24 @@ const PostEditor = () => {
                             onKeyDown={(e: any) => focusNextLine(e)}
                             suppressContentEditableWarning={true}
                             onFocus={changeCaret}
+                            onChange={(e: any) => setInputValue(e.target.value)}
                         >
-                            {item}
+                            {item.content}
                         </TextBlock>
                     );
                 })}
             </BlockEditor>
-        </>
+        </PostEditorLayout>
     );
 };
 
+const PostEditorLayout = styled.div`
+    border: 1px solid #e3e3e3;
+    border-radius: 1em;
+    width: 100%;
+`;
+
 const TodoBox = styled.div`
-    background-color: yellow;
     width: 100%;
     height: 100px;
     display: flex;
@@ -81,12 +121,24 @@ const TodoBox = styled.div`
 `;
 
 const BlockEditor = styled.div`
-    background-color: aliceblue;
     width: 100%;
 `;
 
+const StickerBlock = styled.div`
+    box-sizing: border-box;
+    min-width: 100px;
+    height: 37px;
+    padding-top: 10px;
+    padding-left: 15px;
+    background-color: aliceblue;
+`;
+
 const TextBlock = styled.div`
+    box-sizing: border-box;
     width: 100%;
+    height: 37px;
+    padding-top: 10px;
+    padding-left: 15px;
 `;
 
 export default PostEditor;

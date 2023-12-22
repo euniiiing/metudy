@@ -7,8 +7,25 @@ interface ITodo {
     isDone: boolean;
 }
 
-const Todo = () => {
-    const [todoList, setTodoList] = useState<ITodo[]>([]);
+interface Props {
+    makeDiarySticker?: (e: any) => void;
+}
+
+const Todo = ({ makeDiarySticker }: Props) => {
+    const [todoList, setTodoList] = useState<any[]>([
+        {
+            type: "todo",
+            content: "1",
+        },
+        {
+            type: "todo",
+            content: "2",
+        },
+        {
+            type: "todo",
+            content: "3",
+        },
+    ]);
     const [inputValue, setInputValue] = useState<string>("");
     const registTodo = () => {
         const newTodo: ITodo = {
@@ -26,7 +43,7 @@ const Todo = () => {
             <button onClick={registTodo}>등록</button>
             <hr />
             {todoList?.map((todoContent) => {
-                return <div>{todoContent.value}</div>;
+                return <button onClick={makeDiarySticker}>{todoContent.content}</button>;
             })}
         </TodoLayout>
     );
@@ -34,7 +51,8 @@ const Todo = () => {
 
 const TodoLayout = styled.div`
     width: 100%;
-    height: 100%;
+    height: 300px;
+    background-color: #a0b8cd;
 `;
 
 export default Todo;
