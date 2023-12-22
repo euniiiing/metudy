@@ -1,18 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const PostEditor = () => {
     const [selectedItem, setSelectedItem] = useState<any[]>([]);
+    const [focusingIdx, setFocusingIdx] = useState<number>(0);
+    const caretRef = useRef<any>(undefined);
 
     const pushItem = (e: any) => {
         setSelectedItem((prev) => [...prev, e.target.textContent]);
-        console.log(e);
     };
 
-    const focusNextLine = (e: any) => {
-        e.preventDefault();
-        setSelectedItem((prev) => [...prev, ""]);
+    const focusNextLine = (e: KeyboardEvent) => {
+        // e.preventDefault(); // 자식 div 생성 === 줄 두 개
+        if (e.code !== "Enter") return;
+        else e.preventDefault();
+
+        const selection = window.getSelection();
+
+        const nodeName = selection?.anchorNode?.nodeName;
+
+        if (nodeName === "#text") {
+            caretRef.current = selection?.anchorNode?.parentNode;
+        } else if (nodeName === "DIV") {
+            caretRef.current = selection?.anchorNode;
+        }
+
+        setSelectedItem((prev) => {
+            const newNodes = [...prev];
+            newNodes.splice(parseInt(caretRef.current.dataset.index) + 1, 0, "");
+            return newNodes;
+        });
     };
+
+    useEffect(() => {
+        if (!caretRef.current) return;
+        caretRef.current = caretRef.current.nextSibling;
+        caretRef.current.focus();
+    }, [selectedItem]);
+
+    const changeCaret = (e: any) => {};
 
     return (
         <>
@@ -22,12 +48,15 @@ const PostEditor = () => {
                 <button onClick={pushItem}>3</button>
             </TodoBox>
             <BlockEditor>
-                {selectedItem?.map((item) => {
+                {selectedItem?.map((item, idx) => {
                     return (
                         <TextBlock
+                            data-index={idx}
                             contentEditable={true}
                             draggable={true}
-                            onKeyDown={focusNextLine}
+                            onKeyDown={(e: any) => focusNextLine(e)}
+                            suppressContentEditableWarning={true}
+                            onFocus={changeCaret}
                         >
                             {item}
                         </TextBlock>
