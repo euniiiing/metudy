@@ -4,7 +4,7 @@ import Modal from "@/components/common/Modal";
 import Todo from "@/components/todo/Todo";
 
 const Header = () => {
-    const [modalOn, setModalOn] = useState<boolean>(true);
+    const [modalOn, setModalOn] = useState<boolean>(false);
 
     return (
         <HeaderLayout>

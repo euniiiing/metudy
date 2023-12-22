@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import HeaderLogo from "@/assets/images/feeds-header.png";
 
 const Feeds = () => {
-    const [onMypage, setOnMypage] = useState<boolean>(false);
+    const [onMypage, setOnMypage] = useState<boolean>(true);
 
     return (
         <FeedsLayout>

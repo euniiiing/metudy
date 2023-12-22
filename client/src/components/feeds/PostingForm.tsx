@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import axios from "axios";
 import { postingFormState } from "@/store/atoms/postingForm";
+import PostEditor from "./PostEditor";
 
 const PostingForm = () => {
     const [content, setContent] = useState("");
@@ -22,24 +23,15 @@ const PostingForm = () => {
 
     return (
         <PostingFormLayout onSubmit={handleSubmit}>
-            <textarea
-                className="postingform__content__input"
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="오늘 하루는 어땠나요?"
-            ></textarea>
-            <div className="postingform__actionbox">
-                <button className="postingform__upload__button">upload</button>
-            </div>
+            <PostEditor />
         </PostingFormLayout>
     );
 };
 
-const PostingFormLayout = styled.form`
-    height: 180px;
-    border-bottom: 1px solid #c5c5c5;
+const PostingFormLayout = styled.div`
+    /* border-bottom: 1px solid #c5c5c5; */
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
     flex-direction: column;
 
     .postingform__content__input {
