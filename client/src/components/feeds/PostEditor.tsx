@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Todo from "@/components/todo/Todo";
 import BlockEditor from "../todo/BlockEditor";
 import ITodo from "@/api/todo/Todo";
+import { TodoList } from "../todo/TodoList";
 
 const PostEditor = () => {
     const [BlogData, setBlogData] = useState<ITodo[]>([
@@ -60,7 +61,11 @@ const PostEditor = () => {
 
     return (
         <PostEditorLayout>
-            <Todo makeDiarySticker={makeDiarySticker} />
+            <Todo>
+                <TodoList.CheckButton />
+                <TodoList.Content />
+            </Todo>
+
             <BlockEditor
                 todoListData={BlogData}
                 focusNextLine={focusNextLine}

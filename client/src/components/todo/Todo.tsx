@@ -1,21 +1,18 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler, ReactNode, useState } from "react";
 import styled from "styled-components";
 
 import { TodoList } from "@/components/todo/TodoList";
 
 interface Props {
+    children?: ReactNode;
     makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
 }
 
-const Todo = ({ makeDiarySticker }: Props) => {
+const Todo = ({ children, makeDiarySticker }: Props) => {
     return (
         <TodoLayout>
             <StyledTodoHeader>Todo</StyledTodoHeader>
-            <TodoList makeDiarySticker={makeDiarySticker}>
-                <TodoList.CheckButton />
-                <TodoList.Content />
-                <TodoList.ProgressButton />
-            </TodoList>
+            <TodoList makeDiarySticker={makeDiarySticker}>{children}</TodoList>
         </TodoLayout>
     );
 };
