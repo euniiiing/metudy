@@ -8,27 +8,10 @@ interface Props {
 }
 
 const Todo = ({ makeDiarySticker }: Props) => {
-    const [todoListData, setTodoListData] = useState<ITodo[]>([
-        {
-            content: "밥 먹기",
-            progress: 0,
-            isDone: false,
-        },
-        {
-            content: "양치하기",
-            progress: 0,
-            isDone: true,
-        },
-        {
-            content: "샤워하기",
-            progress: 0,
-            isDone: true,
-        },
-    ]);
-
     return (
         <TodoLayout>
-            <TodoList todoListData={todoListData} makeDiarySticker={makeDiarySticker} />
+            <StyledTodoHeader>Todo</StyledTodoHeader>
+            <TodoList makeDiarySticker={makeDiarySticker} />
         </TodoLayout>
     );
 };
@@ -36,6 +19,15 @@ const Todo = ({ makeDiarySticker }: Props) => {
 const TodoLayout = styled.div`
     width: 100%;
     border-bottom: 1px solid #e3e3e3;
+`;
+
+const StyledTodoHeader = styled.div`
+    background-color: aliceblue;
+    box-sizing: border-box;
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    padding-top: 8px;
 `;
 
 export default Todo;

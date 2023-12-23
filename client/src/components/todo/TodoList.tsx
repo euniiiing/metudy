@@ -1,18 +1,24 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, Suspense, useEffect, useState } from "react";
 import ITodo from "@/api/todo/Todo";
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { getMyTodoList } from "@/api/todo/get-my-todoList";
 
 interface IProps {
-    todoListData: ITodo[];
     makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
 }
 
-const TodoList = ({ todoListData, makeDiarySticker }: IProps) => {
+const TodoList = ({ makeDiarySticker }: IProps) => {
+    const todoList: ITodo[] = useRecoilValue(getMyTodoList);
+
     return (
         <TodoListLayout>
-            {todoListData?.map((todoData) => {
-                return <TodoCard onClick={makeDiarySticker}>{todoData.content}</TodoCard>;
-            })}
+            <Suspense>
+                {todoList &&
+                    todoList?.map((todoData: ITodo) => {
+                        return <TodoCard onClick={makeDiarySticker}>{todoData.content}</TodoCard>;
+                    })}
+            </Suspense>
         </TodoListLayout>
     );
 };

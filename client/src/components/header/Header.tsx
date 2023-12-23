@@ -4,7 +4,7 @@ import Modal from "@/components/common/Modal";
 import Todo from "@/components/todo/Todo";
 
 const Header = () => {
-    const [modalOn, setModalOn] = useState<boolean>(false);
+    const [modalOn, setModalOn] = useState<boolean>(true);
 
     return (
         <HeaderLayout>
@@ -18,7 +18,7 @@ const Header = () => {
                     top="4em"
                     right="1em"
                 >
-                    {/* <Todo /> */}
+                    <Todo />
                 </Modal>
             )}
         </HeaderLayout>
