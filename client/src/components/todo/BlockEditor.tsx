@@ -67,7 +67,7 @@ const StickerBlock = styled.div`
 const TextBlock = styled.div`
     box-sizing: border-box;
     width: 100%;
-    height: 37px;
+    /* height: 37px; */
     padding-top: 10px;
     padding-left: 15px;
 `;
