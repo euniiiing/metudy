@@ -1,22 +1,19 @@
-import React, {
-    MouseEventHandler,
-    PropsWithChildren,
-    ReactNode,
-    Suspense,
-    useEffect,
-    useState,
-} from "react";
-import ITodo from "@/api/todo/Todo";
+import React, { MouseEventHandler, ReactNode } from "react";
 import styled from "styled-components";
+
+import ITodo from "@/api/todo/Todo";
 import { useRecoilValue } from "recoil";
 import { getMyTodoList } from "@/api/todo/get-my-todoList";
+import TodoCheckButton from "@/components/todo/TodoCheckButton";
+import TodoContent from "@/components/todo/TodoContent";
+import TodoProgressButton from "@/components/todo/TodoProgressButton";
 
 interface IProps {
     children?: ReactNode;
     makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
 }
 
-const TodoList = ({ children, makeDiarySticker }: IProps) => {
+const TodoListMain = ({ children, makeDiarySticker }: IProps) => {
     const todoList: ITodo[] = useRecoilValue(getMyTodoList);
 
     const getComponent = (children: ReactNode, componentName: string): ReactNode => {
@@ -64,4 +61,8 @@ const TodoCard = styled.div`
     }
 `;
 
-export default TodoList;
+export const TodoList = Object.assign(TodoListMain, {
+    CheckButton: TodoCheckButton,
+    Content: TodoContent,
+    ProgressButton: TodoProgressButton,
+});

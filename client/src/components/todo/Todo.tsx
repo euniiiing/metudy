@@ -1,10 +1,7 @@
 import React, { MouseEventHandler, useState } from "react";
 import styled from "styled-components";
-import ITodo from "@/api/todo/Todo";
-import TodoList from "@/components/todo/TodoList";
-import TodoCheckButton from "@/components/todo/TodoCheckButton";
-import TodoProgressButton from "@/components/todo/TodoProgressButton";
-import TodoContent from "@/components/todo/TodoContent";
+
+import { TodoList } from "@/components/todo/TodoList";
 
 interface Props {
     makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
@@ -15,9 +12,9 @@ const Todo = ({ makeDiarySticker }: Props) => {
         <TodoLayout>
             <StyledTodoHeader>Todo</StyledTodoHeader>
             <TodoList makeDiarySticker={makeDiarySticker}>
-                <TodoCheckButton></TodoCheckButton>
-                <TodoContent></TodoContent>
-                <TodoProgressButton></TodoProgressButton>
+                <TodoList.CheckButton />
+                <TodoList.Content />
+                <TodoList.ProgressButton />
             </TodoList>
         </TodoLayout>
     );
