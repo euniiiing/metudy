@@ -48,6 +48,11 @@ const BlockEditor = ({ todoListData, focusNextLine, changeCaret, setInputValue }
 
 const BlockEditorLayout = styled.div`
     width: 100%;
+    margin-bottom: 1em;
+
+    *:focus {
+        outline: none;
+    }
 `;
 
 const StickerBlock = styled.div`

@@ -4,11 +4,11 @@ import ITodo from "@/api/todo/Todo";
 import TodoList from "./TodoList";
 
 interface Props {
-    makeDiarySticker?: MouseEventHandler<HTMLButtonElement>;
+    makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
 }
 
 const Todo = ({ makeDiarySticker }: Props) => {
-    const [todoList, setTodoList] = useState<ITodo[]>([
+    const [todoListData, setTodoListData] = useState<ITodo[]>([
         {
             content: "밥 먹기",
             progress: 0,
@@ -28,18 +28,14 @@ const Todo = ({ makeDiarySticker }: Props) => {
 
     return (
         <TodoLayout>
-            {todoList?.map((todoContent) => {
-                return <button onClick={makeDiarySticker}>{todoContent.content}</button>;
-            })}
-            {/* <TodoList /> */}
+            <TodoList todoListData={todoListData} makeDiarySticker={makeDiarySticker} />
         </TodoLayout>
     );
 };
 
 const TodoLayout = styled.div`
     width: 100%;
-    height: 300px;
-    background-color: #a0b8cd;
+    border-bottom: 1px solid #e3e3e3;
 `;
 
 export default Todo;
