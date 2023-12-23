@@ -1,50 +1,37 @@
-import React, { useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import styled from "styled-components";
-
-interface ITodo {
-    value: string;
-    progress: number;
-    isDone: boolean;
-}
+import ITodo from "@/api/todo/Todo";
+import TodoList from "./TodoList";
 
 interface Props {
-    makeDiarySticker?: (e: any) => void;
+    makeDiarySticker?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Todo = ({ makeDiarySticker }: Props) => {
-    const [todoList, setTodoList] = useState<any[]>([
+    const [todoList, setTodoList] = useState<ITodo[]>([
         {
-            type: "todo",
-            content: "1",
-        },
-        {
-            type: "todo",
-            content: "2",
-        },
-        {
-            type: "todo",
-            content: "3",
-        },
-    ]);
-    const [inputValue, setInputValue] = useState<string>("");
-    const registTodo = () => {
-        const newTodo: ITodo = {
-            value: inputValue,
+            content: "밥 먹기",
             progress: 0,
             isDone: false,
-        };
-        setTodoList((prev) => [...prev, newTodo]);
-        setInputValue("");
-    };
+        },
+        {
+            content: "양치하기",
+            progress: 0,
+            isDone: true,
+        },
+        {
+            content: "샤워하기",
+            progress: 0,
+            isDone: true,
+        },
+    ]);
 
     return (
         <TodoLayout>
-            <input onChange={(e) => setInputValue(e.target.value)} value={inputValue}></input>
-            <button onClick={registTodo}>등록</button>
-            <hr />
             {todoList?.map((todoContent) => {
                 return <button onClick={makeDiarySticker}>{todoContent.content}</button>;
             })}
+            {/* <TodoList /> */}
         </TodoLayout>
     );
 };

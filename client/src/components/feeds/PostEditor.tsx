@@ -2,32 +2,24 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Todo from "@/components/todo/Todo";
 import BlockEditor from "../todo/BlockEditor";
+import ITodo from "@/api/todo/Todo";
 
 const PostEditor = () => {
-    const [todoListData, setDodoListData] = useState<any[]>([
+    const [BlogData, setBlogData] = useState<ITodo[]>([
         {
-            type: "todo",
-            content: "1",
-        },
-        {
-            type: "todo",
-            content: "2",
-        },
-        {
-            type: "todo",
-            content: "3",
+            content: "",
+            progress: 0,
+            isDone: false,
         },
     ]);
     const caretRef = useRef<any>(undefined);
     const [inputValue, setInputValue] = useState("");
 
-    const focusNextLine = (e: KeyboardEvent) => {
-        // e.preventDefault(); // 자식 div 생성 === 줄 두 개
+    const focusNextLine = (e: any) => {
         if (e.code !== "Enter") return;
-        else e.preventDefault();
+        else e.preventDefault(); // 자식 div 생성
 
         const selection = window.getSelection();
-
         const nodeName = selection?.anchorNode?.nodeName;
 
         if (nodeName === "#text") {
@@ -36,10 +28,11 @@ const PostEditor = () => {
             caretRef.current = selection?.anchorNode;
         }
 
-        setDodoListData((prev) => {
-            const newText = {
-                type: "text",
-                content: "",
+        setBlogData((prev) => {
+            const newText: ITodo = {
+                content: inputValue,
+                progress: 0,
+                isDone: false,
             };
 
             const newNodes = [...prev];
@@ -52,23 +45,24 @@ const PostEditor = () => {
         if (!caretRef.current) return;
         caretRef.current = caretRef.current.nextSibling;
         caretRef.current.focus();
-    }, [todoListData]);
+    }, [BlogData]);
 
-    const changeCaret = (e: any) => {};
+    const changeCaret = () => {};
 
     const makeDiarySticker = (e: any) => {
-        const newSticker = {
-            type: "todo",
+        const newSticker: ITodo = {
             content: e.target.textContent,
+            progress: 0,
+            isDone: false,
         };
-        setDodoListData((prev) => [...prev, newSticker]);
+        setBlogData((prev) => [...prev, newSticker]);
     };
 
     return (
         <PostEditorLayout>
             <Todo makeDiarySticker={makeDiarySticker} />
             <BlockEditor
-                todoListData={todoListData}
+                todoListData={BlogData}
                 focusNextLine={focusNextLine}
                 changeCaret={changeCaret}
                 setInputValue={setInputValue}
