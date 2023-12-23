@@ -7,6 +7,7 @@ import { getMyTodoList } from "@/api/todo/get-my-todoList";
 import TodoCheckButton from "@/components/todo/TodoCheckButton";
 import TodoContent from "@/components/todo/TodoContent";
 import TodoProgressButton from "@/components/todo/TodoProgressButton";
+import { TodoCard } from "./TodoCard";
 
 interface IProps {
     children?: ReactNode;
@@ -16,24 +17,14 @@ interface IProps {
 const TodoListMain = ({ children, makeDiarySticker }: IProps) => {
     const todoList: ITodo[] = useRecoilValue(getMyTodoList);
 
-    const getComponent = (children: ReactNode, componentName: string): ReactNode => {
-        return React.Children.toArray(children).find(
-            (child: any) => child.type.name === componentName
-        );
-    };
-
-    const TodoCheckButton = getComponent(children, "TodoCheckButton");
-    const TodoProgressButton = getComponent(children, "TodoProgressButton");
-    const TodoContent = getComponent(children, "TodoContent");
-
     return (
         <TodoListLayout>
             {todoList.map((todo: ITodo) => {
                 return (
                     <TodoCard>
-                        {TodoCheckButton && <>{TodoCheckButton}</>}
-                        {TodoContent && <>{TodoContent}</>}
-                        {TodoProgressButton && <>{TodoProgressButton}</>}
+                        <TodoCard.CheckButton todo={todo} />
+                        <TodoCard.Content todo={todo} />
+                        <TodoCard.ProgressButton todo={todo} />
                     </TodoCard>
                 );
             })}
@@ -50,15 +41,6 @@ const TodoListLayout = styled.div`
     align-items: center;
     justify-content: center;
     padding: 2em;
-`;
-
-const TodoCard = styled.div`
-    margin: 10px;
-    display: flex;
-
-    &:hover {
-        cursor: pointer;
-    }
 `;
 
 export const TodoList = Object.assign(TodoListMain, {

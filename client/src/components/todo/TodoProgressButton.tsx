@@ -1,6 +1,11 @@
+import ITodo from "@/api/todo/Todo";
 import React from "react";
 
-const TodoProgressButton = () => {
+interface Props {
+    todo: ITodo;
+}
+
+const TodoProgressButton = ({ todo }: Props) => {
     return <button>TodoProgressButton</button>;
 };
 

@@ -1,7 +1,23 @@
+import ITodo from "@/api/todo/Todo";
 import React from "react";
+import styled from "styled-components";
 
-const TodoContent = () => {
-    return <div>TodoContent</div>;
+interface Props {
+    todo: ITodo;
+}
+
+const TodoContent = ({ todo }: Props) => {
+    return (
+        <TodoContentLayout>
+            <span className="done">{todo.content}</span>
+        </TodoContentLayout>
+    );
 };
+
+const TodoContentLayout = styled.div`
+    .done {
+        text-decoration: line-through;
+    }
+`;
 
 export default TodoContent;

@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Modal from "@/components/common/Modal";
 import Todo from "@/components/todo/Todo";
 import { TodoList } from "../todo/TodoList";
+import { useRecoilValue } from "recoil";
+import { getMyTodoList } from "@/api/todo/get-my-todoList";
+import ITodo from "@/api/todo/Todo";
 
 const Header = () => {
     const [modalOn, setModalOn] = useState<boolean>(true);
@@ -19,11 +22,7 @@ const Header = () => {
                     top="4em"
                     right="1em"
                 >
-                    <Todo>
-                        <TodoList.CheckButton />
-                        <TodoList.Content />
-                        <TodoList.ProgressButton />
-                    </Todo>
+                    <Todo />
                 </Modal>
             )}
         </HeaderLayout>

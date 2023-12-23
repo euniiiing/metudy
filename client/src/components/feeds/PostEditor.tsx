@@ -17,34 +17,56 @@ const PostEditor = () => {
     const [inputValue, setInputValue] = useState("");
 
     const focusNextLine = (e: any) => {
-        if (e.code !== "Enter") return;
-        else e.preventDefault(); // 자식 div 생성
+        if (e.code === "Enter") {
+            e.preventDefault(); // 자식 div 생성
 
-        const selection = window.getSelection();
-        const nodeName = selection?.anchorNode?.nodeName;
+            const selection = window.getSelection();
+            const nodeName = selection?.anchorNode?.nodeName;
 
-        if (nodeName === "#text") {
-            caretRef.current = selection?.anchorNode?.parentNode;
-        } else if (nodeName === "DIV") {
-            caretRef.current = selection?.anchorNode;
+            if (nodeName === "#text") {
+                caretRef.current = selection?.anchorNode?.parentNode;
+            } else if (nodeName === "DIV") {
+                caretRef.current = selection?.anchorNode;
+            }
+
+            setBlogData((prev) => {
+                const newText: ITodo = {
+                    content: inputValue,
+                    progress: 0,
+                    isDone: false,
+                };
+
+                const newNodes = [...prev];
+                newNodes.splice(parseInt(caretRef.current.dataset.index) + 1, 0, newText);
+                return newNodes;
+            });
+        } else if (e.code === "Backspace") {
+            const selection = window.getSelection();
+            const nodeName = selection?.anchorNode?.nodeName;
+
+            if (nodeName === "#text") {
+                caretRef.current = selection?.anchorNode?.parentNode;
+            } else if (nodeName === "DIV") {
+                caretRef.current = selection?.anchorNode;
+            }
+
+            console.dir(caretRef.current);
+
+            setBlogData((prev) => {
+                const newNodes = [...prev];
+                newNodes.splice(parseInt(caretRef.current.dataset.index) + 1, 1);
+                return newNodes;
+            });
+        } else {
+            console.log(e.code);
+            return;
         }
-
-        setBlogData((prev) => {
-            const newText: ITodo = {
-                content: inputValue,
-                progress: 0,
-                isDone: false,
-            };
-
-            const newNodes = [...prev];
-            newNodes.splice(parseInt(caretRef.current.dataset.index) + 1, 0, newText);
-            return newNodes;
-        });
     };
 
     useEffect(() => {
         if (!caretRef.current) return;
-        caretRef.current = caretRef.current.nextSibling;
+        // caretRef.current = caretRef.current.nextSibling;
+        caretRef.current = caretRef.current.previousSibling;
         caretRef.current.focus();
     }, [BlogData]);
 
@@ -61,10 +83,7 @@ const PostEditor = () => {
 
     return (
         <PostEditorLayout>
-            <Todo>
-                <TodoList.CheckButton />
-                <TodoList.Content />
-            </Todo>
+            <Todo />
 
             <BlockEditor
                 todoListData={BlogData}
