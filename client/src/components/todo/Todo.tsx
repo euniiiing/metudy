@@ -19,7 +19,6 @@ const Todo = ({ children, makeDiarySticker }: Props) => {
 
 const TodoLayout = styled.div`
     width: 100%;
-    border-bottom: 1px solid #e3e3e3;
 `;
 
 const StyledTodoHeader = styled.div`
