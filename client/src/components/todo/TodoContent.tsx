@@ -9,7 +9,7 @@ interface Props {
 const TodoContent = ({ todo }: Props) => {
     return (
         <TodoContentLayout>
-            <span className="done">{todo.content}</span>
+            <span className={todo.isDone ? "done" : ""}>{todo.content}</span>
         </TodoContentLayout>
     );
 };

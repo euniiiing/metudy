@@ -8,7 +8,7 @@ import { getMyTodoList } from "@/api/todo/get-my-todoList";
 import ITodo from "@/api/todo/Todo";
 
 const Header = () => {
-    const [modalOn, setModalOn] = useState<boolean>(true);
+    const [modalOn, setModalOn] = useState<boolean>(false);
 
     return (
         <HeaderLayout>

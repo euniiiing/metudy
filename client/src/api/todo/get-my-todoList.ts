@@ -1,6 +1,7 @@
 import axios from "axios";
-import { selector } from "recoil";
+import { atom, selector } from "recoil";
 import ITodo from "./Todo";
+import { myTodoState } from "@/store/atoms/myTodo";
 
 export const getMyTodoList = selector({
     key: "myTodoList/get",

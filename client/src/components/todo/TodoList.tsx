@@ -1,13 +1,14 @@
-import React, { MouseEventHandler, ReactNode } from "react";
+import React, { MouseEventHandler, ReactNode, useEffect } from "react";
 import styled from "styled-components";
 
 import ITodo from "@/api/todo/Todo";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { getMyTodoList } from "@/api/todo/get-my-todoList";
 import TodoCheckButton from "@/components/todo/TodoCheckButton";
 import TodoContent from "@/components/todo/TodoContent";
 import TodoProgressButton from "@/components/todo/TodoProgressButton";
 import { TodoCard } from "./TodoCard";
+import { myTodoState } from "@/store/atoms/myTodo";
 
 interface IProps {
     haveProgressButton: boolean;
@@ -15,14 +16,47 @@ interface IProps {
 }
 
 const TodoListMain = ({ haveProgressButton, makeDiarySticker }: IProps) => {
-    const todoList: ITodo[] = useRecoilValue(getMyTodoList);
+    const [todoList, setTodoList] = useRecoilState(myTodoState);
+
+    const toggleDoneTodo = (idx: number) => {
+        // const newTodoList: ITodo[] = [...todoList];
+        // newTodoList[idx].isDone = true;
+        const newTodoList: ITodo[] = todoList.map((todo, i) =>
+            i === idx ? { ...todo, isDone: !todo.isDone } : todo
+        );
+        setTodoList(newTodoList);
+    };
+
+    useEffect(() => {
+        setTodoList(() => [
+            {
+                content: "밥 먹기",
+                progress: 0,
+                isDone: false,
+            },
+            {
+                content: "양치하기",
+                progress: 0,
+                isDone: true,
+            },
+            {
+                content: "샤워하기",
+                progress: 0,
+                isDone: true,
+            },
+        ]);
+    }, []);
 
     return (
         <TodoListLayout>
-            {todoList.map((todo: ITodo) => {
+            {todoList.map((todo: ITodo, idx: number) => {
                 return (
                     <TodoCard>
-                        <TodoCard.CheckButton todo={todo} />
+                        <TodoCard.CheckButton
+                            todo={todo}
+                            idx={idx}
+                            toggleDoneTodo={toggleDoneTodo}
+                        />
                         <TodoCard.Content todo={todo} />
                         {haveProgressButton && <TodoCard.ProgressButton todo={todo} />}
                     </TodoCard>

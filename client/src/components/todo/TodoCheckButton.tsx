@@ -4,17 +4,15 @@ import styled from "styled-components";
 
 interface Props {
     todo: ITodo;
+    idx: number;
+    toggleDoneTodo: (idx: number) => void;
 }
 
-const TodoCheckButton = ({ todo }: Props) => {
-    const [isDone, setIsDone] = useState<boolean>(false);
-
-    const toggleDoneTodo = () => {
-        setIsDone(!isDone);
-    };
-
+const TodoCheckButton = ({ todo, idx, toggleDoneTodo }: Props) => {
     return (
-        <TodoCheckButtonLayout onClick={toggleDoneTodo}>{isDone ? "O" : "X"}</TodoCheckButtonLayout>
+        <TodoCheckButtonLayout onClick={() => toggleDoneTodo(idx)}>
+            {todo.isDone ? "O" : "X"}
+        </TodoCheckButtonLayout>
     );
 };
 
