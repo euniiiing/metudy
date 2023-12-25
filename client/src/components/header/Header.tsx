@@ -22,7 +22,10 @@ const Header = () => {
                     top="4em"
                     right="1em"
                 >
-                    <Todo />
+                    <Todo>
+                        <StyledTodoHeader>todo</StyledTodoHeader>
+                        <TodoList haveProgressButton={true} />
+                    </Todo>
                 </Modal>
             )}
         </HeaderLayout>
@@ -34,6 +37,15 @@ const HeaderLayout = styled.div`
     width: 100%;
     height: 3em;
     background-color: aliceblue;
+`;
+
+const StyledTodoHeader = styled.div`
+    background-color: aliceblue;
+    box-sizing: border-box;
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    padding-top: 8px;
 `;
 
 export default Header;

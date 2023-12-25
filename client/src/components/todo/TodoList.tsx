@@ -10,11 +10,11 @@ import TodoProgressButton from "@/components/todo/TodoProgressButton";
 import { TodoCard } from "./TodoCard";
 
 interface IProps {
-    children?: ReactNode;
+    haveProgressButton: boolean;
     makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
 }
 
-const TodoListMain = ({ children, makeDiarySticker }: IProps) => {
+const TodoListMain = ({ haveProgressButton, makeDiarySticker }: IProps) => {
     const todoList: ITodo[] = useRecoilValue(getMyTodoList);
 
     return (
@@ -24,7 +24,7 @@ const TodoListMain = ({ children, makeDiarySticker }: IProps) => {
                     <TodoCard>
                         <TodoCard.CheckButton todo={todo} />
                         <TodoCard.Content todo={todo} />
-                        <TodoCard.ProgressButton todo={todo} />
+                        {haveProgressButton && <TodoCard.ProgressButton todo={todo} />}
                     </TodoCard>
                 );
             })}

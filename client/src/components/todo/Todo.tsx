@@ -5,29 +5,14 @@ import { TodoList } from "@/components/todo/TodoList";
 
 interface Props {
     children?: ReactNode;
-    makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
 }
 
-const Todo = ({ children, makeDiarySticker }: Props) => {
-    return (
-        <TodoLayout>
-            <StyledTodoHeader>Todo</StyledTodoHeader>
-            <TodoList makeDiarySticker={makeDiarySticker}>{children}</TodoList>
-        </TodoLayout>
-    );
+const Todo = ({ children }: Props) => {
+    return <TodoLayout>{children}</TodoLayout>;
 };
 
 const TodoLayout = styled.div`
     width: 100%;
-`;
-
-const StyledTodoHeader = styled.div`
-    background-color: aliceblue;
-    box-sizing: border-box;
-    width: 100%;
-    height: 35px;
-    text-align: center;
-    padding-top: 8px;
 `;
 
 export default Todo;
