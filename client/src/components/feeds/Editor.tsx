@@ -2,6 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ITodo from "@/api/todo/Todo";
 
+type ContentType = "text" | "sticker";
+
+interface ElementData {
+    type: ContentType;
+    content: string;
+}
+
 const Editor = () => {
     const [BlogData, setBlogData] = useState<ITodo[]>([
         {
@@ -93,36 +100,35 @@ const Editor = () => {
         setBlogData((prev) => [...prev, newSticker]);
     };
 
+    const [elementData, setElementData] = useState<ElementData[]>([
+        { type: "text", content: "" },
+        { type: "text", content: "" },
+        { type: "text", content: "" },
+    ]);
+    const blockContainerRef = useRef<HTMLDivElement>(null);
+    const focusElementRef = useRef<HTMLDivElement | undefined>(undefined);
+
+    useEffect(() => {
+        if (!blockContainerRef.current) return;
+        focusElementRef.current = blockContainerRef.current.firstElementChild as HTMLDivElement;
+        focusElementRef.current.focus();
+    }, []);
+
     return (
         <EditorLayout>
-            <BlockEditorLayout>
-                {/* todoListData type 값 없음 -> 어떻게 하지 */}
-                {BlogData?.map((item: ITodo, idx: number) => {
-                    // if (item.type === "todo") {
-                    //     return (
-                    //         <StickerBlock
-                    //             data-index={idx}
-                    //             contentEditable={true}
-                    //             draggable={true}
-                    //             onKeyDown={(e: any) => focusNextLine(e)}
-                    //             suppressContentEditableWarning={true}
-                    //             onFocus={changeCaret}
-                    //         >
-                    //             {item.content}
-                    //         </StickerBlock>
-                    //     );
-                    // }
+            <BlockEditorLayout ref={blockContainerRef}>
+                {elementData.map((ed: ElementData, idx: number) => {
                     return (
                         <TextBlock
                             data-index={idx}
                             contentEditable={true}
                             draggable={true}
-                            onKeyDown={(e: any) => focusNextLine(e)}
                             suppressContentEditableWarning={true}
+                            onKeyDown={(e: any) => focusNextLine(e)}
                             onFocus={changeCaret}
                             onChange={(e: any) => setInputValue(e.target.value)}
                         >
-                            {item.content}
+                            {ed.content}
                         </TextBlock>
                     );
                 })}
@@ -139,7 +145,7 @@ const EditorLayout = styled.div`
 
 const BlockEditorLayout = styled.div`
     width: 100%;
-    margin-bottom: 1em;
+    margin-bottom: 0.8em;
 
     *:focus {
         outline: none;
@@ -158,7 +164,6 @@ const StickerBlock = styled.div`
 const TextBlock = styled.div`
     box-sizing: border-box;
     width: 100%;
-    /* height: 37px; */
     padding-top: 10px;
     padding-left: 15px;
 `;
