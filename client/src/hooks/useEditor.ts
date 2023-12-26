@@ -74,7 +74,8 @@ const useEditor = (): ReturnType => {
         setBlockInfo((prev): BlockInfo[] => {
             const newBlocks: BlockInfo[] = [...prev];
             if (!focusBlockRef.current) return [];
-            newBlocks.splice(parseInt(focusBlockRef.current.dataset.index as string) + 1, 0);
+            console.log(focusBlockRef.current.dataset.index);
+            newBlocks.splice(parseInt(focusBlockRef.current.dataset.index as string) + 1, 1);
             return newBlocks;
         });
     };
