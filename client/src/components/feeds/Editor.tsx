@@ -25,7 +25,6 @@ const Editor = () => {
 
         const selection: Selection | null = window.getSelection();
         const nodeName: string | undefined = selection?.anchorNode?.nodeName;
-        console.log(nodeName);
         switch (nodeName) {
             case "#text":
                 focusBlockRef.current = selection?.anchorNode?.parentNode
@@ -55,41 +54,43 @@ const Editor = () => {
     };
 
     const moveToPrevLine = (e: KeyboardEvent) => {
-        const selection = window.getSelection();
-        const nodeName = selection?.anchorNode?.nodeName;
-        // switch (nodeName) {
-        //     case "#text":
-        //         focusBlockRef.current = selection?.anchorNode?.parentNode;
-        //         break;
-        //     case "DIV":
-        //         focusBlockRef.current = selection?.anchorNode;
-        //         break;
-        //     default:
-        //         break;
-        // }
+        const selection: Selection | null = window.getSelection();
+        const nodeName: string | undefined = selection?.anchorNode?.nodeName;
+        switch (nodeName) {
+            case "#text":
+                if (selection?.anchorNode?.textContent) return;
+                focusBlockRef.current = selection?.anchorNode?.parentNode
+                    ?.previousSibling as HTMLDivElement;
+                break;
+            case "DIV":
+                focusBlockRef.current = selection?.anchorNode?.previousSibling as HTMLDivElement;
+                break;
+            default:
+                break;
+        }
 
-        // setBlogData((prev) => {
-        //     const newNodes = [...prev];
-        //     newNodes.splice(parseInt(caretRef.current.dataset.index) + 1, 1);
-        //     return newNodes;
-        // });
+        setBlockInfo((prev): BlockInfo[] => {
+            const newBlocks: BlockInfo[] = [...prev];
+            if (!focusBlockRef.current) return [];
+            newBlocks.splice(parseInt(focusBlockRef.current.dataset.index as string) + 1, 0);
+            return newBlocks;
+        });
     };
 
     const handleKeyboard = (e: KeyboardEvent) => {
         switch (e.code) {
             case "Enter":
                 moveToNextLine(e);
-                return;
+                break;
             case "Backspace":
                 moveToPrevLine(e);
-                return;
+                break;
             default:
-                return;
+                break;
         }
     };
 
     useEffect(() => {
-        console.log(focusBlockRef.current);
         if (!focusBlockRef.current) return;
         focusBlockRef.current.focus();
     }, [blockInfo]);
