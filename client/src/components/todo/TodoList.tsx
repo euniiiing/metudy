@@ -51,13 +51,13 @@ const TodoListMain = ({ haveProgressButton, makeDiarySticker }: IProps) => {
         <TodoListLayout>
             {todoList.map((todo: ITodo, idx: number) => {
                 return (
-                    <TodoCard>
+                    <TodoCard makeDiarySticker={makeDiarySticker}>
                         <TodoCard.CheckButton
                             todo={todo}
                             idx={idx}
                             toggleDoneTodo={toggleDoneTodo}
                         />
-                        <TodoCard.Content todo={todo} />
+                        <TodoCard.Content todo={todo} makeDiarySticker={makeDiarySticker} />
                         {haveProgressButton && <TodoCard.ProgressButton todo={todo} />}
                     </TodoCard>
                 );

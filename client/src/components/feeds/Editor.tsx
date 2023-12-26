@@ -1,10 +1,16 @@
-import React, { KeyboardEvent } from "react";
+import React, { KeyboardEvent, MouseEventHandler, useEffect } from "react";
 import styled from "styled-components";
 import useEditor from "@/hooks/useEditor";
 import { BlockInfo } from "@/hooks/useEditor";
+import ITodo from "@/api/todo/Todo";
 
-const Editor = () => {
-    const { blockInfo, blockContainerRef, handleKeyboard } = useEditor();
+interface Props {
+    makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
+    stickerContent: string;
+}
+
+const Editor = ({ makeDiarySticker, stickerContent }: Props) => {
+    const { blockInfo, blockContainerRef, handleKeyboard } = useEditor({ stickerContent });
 
     return (
         <EditorLayout ref={blockContainerRef}>

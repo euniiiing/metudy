@@ -1,14 +1,15 @@
 import ITodo from "@/api/todo/Todo";
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import styled from "styled-components";
 
 interface Props {
     todo: ITodo;
+    makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
 }
 
-const TodoContent = ({ todo }: Props) => {
+const TodoContent = ({ todo, makeDiarySticker = () => {} }: Props) => {
     return (
-        <TodoContentLayout>
+        <TodoContentLayout onClick={(e: React.MouseEvent<HTMLDivElement>) => makeDiarySticker(e)}>
             <span className={todo.isDone ? "done" : ""}>{todo.content}</span>
         </TodoContentLayout>
     );

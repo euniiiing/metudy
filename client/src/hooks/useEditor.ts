@@ -7,13 +7,17 @@ export interface BlockInfo {
     content: string;
 }
 
+interface Props {
+    stickerContent: string;
+}
+
 interface ReturnType {
     blockInfo: BlockInfo[];
     blockContainerRef: React.RefObject<HTMLDivElement>;
     handleKeyboard: (e: KeyboardEvent) => void;
 }
 
-const useEditor = (): ReturnType => {
+const useEditor = ({ stickerContent }: Props): ReturnType => {
     const [blockInfo, setBlockInfo] = useState<BlockInfo[]>([
         { type: "text", content: "" },
         { type: "text", content: "" },
@@ -123,6 +127,10 @@ const useEditor = (): ReturnType => {
             console.log(e);
         }
     }, [blockInfo]);
+
+    useEffect(() => {
+        setBlockInfo((prev) => [...prev, { type: "sticker", content: stickerContent }]);
+    }, [stickerContent]);
 
     useEffect(() => {
         if (!blockContainerRef.current) return;

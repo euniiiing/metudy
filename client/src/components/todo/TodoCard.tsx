@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactNode } from "react";
+import React, { MouseEvent, MouseEventHandler, ReactNode } from "react";
 
 import TodoCheckButton from "@/components/todo/TodoCheckButton";
 import TodoContent from "@/components/todo/TodoContent";
@@ -11,7 +11,7 @@ interface Props {
     makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
 }
 
-const TodoCardMain = ({ children }: Props) => {
+const TodoCardMain = ({ children, makeDiarySticker = () => {} }: Props) => {
     const getComponent = (children: ReactNode, componentName: string): ReactNode => {
         return React.Children.toArray(children).find(
             (child: any) => child.type.name === componentName
