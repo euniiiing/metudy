@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
+import React, { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 
 type ContentType = "text" | "sticker";
 
@@ -24,11 +24,13 @@ const useEditor = (): ReturnType => {
 
     const moveToNextLine = (e: KeyboardEvent): void => {
         e.preventDefault(); // 자식 div 생성
+        if (e.nativeEvent.isComposing) return;
 
         const selection: Selection | null = window.getSelection();
         const nodeName: string | undefined = selection?.anchorNode?.nodeName;
         switch (nodeName) {
             case "#text":
+                console.log("txt");
                 focusBlockRef.current = selection?.anchorNode?.parentNode
                     ?.nextSibling as HTMLDivElement;
                 break;
@@ -74,7 +76,6 @@ const useEditor = (): ReturnType => {
         setBlockInfo((prev): BlockInfo[] => {
             const newBlocks: BlockInfo[] = [...prev];
             if (!focusBlockRef.current) return [];
-            console.log(focusBlockRef.current.dataset.index);
             newBlocks.splice(parseInt(focusBlockRef.current.dataset.index as string) + 1, 1);
             return newBlocks;
         });
