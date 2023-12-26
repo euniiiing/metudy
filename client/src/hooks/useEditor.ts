@@ -1,28 +1,17 @@
 import React, { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-
-type ContentType = "text" | "sticker";
-
-export interface BlockInfo {
-    type: ContentType;
-    content: string;
-}
+import { BlockData } from "@/components/feeds/PostingForm";
 
 interface Props {
-    stickerContent: string;
+    blocksData: BlockData[];
+    setBlocksData: React.Dispatch<React.SetStateAction<BlockData[]>>;
 }
 
 interface ReturnType {
-    blockInfo: BlockInfo[];
     blockContainerRef: React.RefObject<HTMLDivElement>;
     handleKeyboard: (e: KeyboardEvent) => void;
 }
 
-const useEditor = ({ stickerContent }: Props): ReturnType => {
-    const [blockInfo, setBlockInfo] = useState<BlockInfo[]>([
-        { type: "text", content: "" },
-        { type: "text", content: "" },
-        { type: "text", content: "" },
-    ]);
+const useEditor = ({ blocksData, setBlocksData }: Props): ReturnType => {
     const blockContainerRef = useRef<HTMLDivElement>(null);
     const focusBlockRef = useRef<HTMLDivElement | undefined>(undefined);
 
@@ -47,12 +36,12 @@ const useEditor = ({ stickerContent }: Props): ReturnType => {
                 break;
         }
 
-        setBlockInfo((prev): BlockInfo[] => {
-            const newBlock: BlockInfo = {
+        setBlocksData((prev): BlockData[] => {
+            const newBlock: BlockData = {
                 type: "text",
                 content: "",
             };
-            const newBlocks: BlockInfo[] = [...prev];
+            const newBlocks: BlockData[] = [...prev];
             if (!focusBlockRef.current) return [];
             newBlocks.splice(
                 parseInt(focusBlockRef.current.dataset.index as string) + 1,
@@ -83,8 +72,8 @@ const useEditor = ({ stickerContent }: Props): ReturnType => {
             e.preventDefault();
         }
 
-        setBlockInfo((prev): BlockInfo[] => {
-            const newBlocks: BlockInfo[] = [...prev];
+        setBlocksData((prev): BlockData[] => {
+            const newBlocks: BlockData[] = [...prev];
             if (!focusBlockRef.current) return [];
             newBlocks.splice(parseInt(focusBlockRef.current.dataset.index as string) + 1, 1);
             return newBlocks;
@@ -126,11 +115,7 @@ const useEditor = ({ stickerContent }: Props): ReturnType => {
         } catch (e) {
             console.log(e);
         }
-    }, [blockInfo]);
-
-    useEffect(() => {
-        setBlockInfo((prev) => [...prev, { type: "sticker", content: stickerContent }]);
-    }, [stickerContent]);
+    }, [blocksData]);
 
     useEffect(() => {
         if (!blockContainerRef.current) return;
@@ -138,7 +123,7 @@ const useEditor = ({ stickerContent }: Props): ReturnType => {
         focusBlockRef.current.focus();
     }, []);
 
-    return { blockInfo, blockContainerRef, handleKeyboard };
+    return { blockContainerRef, handleKeyboard };
 };
 
 export default useEditor;

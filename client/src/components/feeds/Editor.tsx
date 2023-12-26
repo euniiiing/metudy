@@ -1,20 +1,33 @@
 import React, { KeyboardEvent, MouseEventHandler, useEffect } from "react";
 import styled from "styled-components";
 import useEditor from "@/hooks/useEditor";
-import { BlockInfo } from "@/hooks/useEditor";
 import ITodo from "@/api/todo/Todo";
+import { BlockData } from "@/components/feeds/PostingForm";
 
 interface Props {
-    makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
-    stickerContent: string;
+    blocksData: BlockData[];
+    setBlocksData: React.Dispatch<React.SetStateAction<BlockData[]>>;
 }
 
-const Editor = ({ makeDiarySticker, stickerContent }: Props) => {
-    const { blockInfo, blockContainerRef, handleKeyboard } = useEditor({ stickerContent });
+const Editor = ({ blocksData, setBlocksData }: Props) => {
+    const { blockContainerRef, handleKeyboard } = useEditor({ blocksData, setBlocksData });
 
     return (
         <EditorLayout ref={blockContainerRef}>
-            {blockInfo.map((ed: BlockInfo, idx: number) => {
+            {blocksData.map((bd: BlockData, idx: number) => {
+                if (bd.type === "sticker") {
+                    return (
+                        <StickerBlock
+                            data-index={idx}
+                            contentEditable={true}
+                            suppressContentEditableWarning={true}
+                            onKeyDown={(e: KeyboardEvent) => handleKeyboard(e)}
+                            className={bd.type === "sticker" ? "sticker-block" : ""}
+                        >
+                            {bd.content}
+                        </StickerBlock>
+                    );
+                }
                 return (
                     <TextBlock
                         data-index={idx}
@@ -22,7 +35,7 @@ const Editor = ({ makeDiarySticker, stickerContent }: Props) => {
                         suppressContentEditableWarning={true}
                         onKeyDown={(e: KeyboardEvent) => handleKeyboard(e)}
                     >
-                        {ed.content}
+                        {bd.content}
                     </TextBlock>
                 );
             })}
@@ -48,6 +61,7 @@ const StickerBlock = styled.div`
     padding-top: 10px;
     padding-left: 15px;
     background-color: aliceblue;
+    margin: 3px;
 `;
 
 const TextBlock = styled.div`

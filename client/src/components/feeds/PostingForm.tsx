@@ -5,19 +5,27 @@ import Todo from "@/components/todo/Todo";
 import { TodoList } from "@/components/todo/TodoList";
 import ITodo from "@/api/todo/Todo";
 
+type ContentType = "text" | "sticker";
+
+export interface BlockData {
+    type: ContentType;
+    content: string;
+}
+
 const PostingForm = () => {
-    const [stickerContent, setStickerContent] = useState<string>("");
-    const makeDiarySticker = (e: React.MouseEvent<HTMLDivElement>) => {
-        setStickerContent(e.currentTarget.firstChild?.textContent as string);
-    };
+    const [blocksData, setBlocksData] = useState<BlockData[]>([
+        { type: "text", content: "" },
+        { type: "text", content: "" },
+        { type: "text", content: "" },
+    ]);
 
     return (
         <PostingFormLayout>
             <Todo>
                 <StyledTodoHeader>todo</StyledTodoHeader>
-                <TodoList haveProgressButton={false} makeDiarySticker={makeDiarySticker} />
+                <TodoList haveProgressButton={false} setBlocksData={setBlocksData} />
             </Todo>
-            <Editor stickerContent={stickerContent} />
+            <Editor blocksData={blocksData} setBlocksData={setBlocksData} />
         </PostingFormLayout>
     );
 };

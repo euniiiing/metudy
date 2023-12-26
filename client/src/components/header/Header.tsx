@@ -6,6 +6,7 @@ import { TodoList } from "../todo/TodoList";
 import { useRecoilValue } from "recoil";
 import { getMyTodoList } from "@/api/todo/get-my-todoList";
 import ITodo from "@/api/todo/Todo";
+import { BlockData } from "../feeds/PostingForm";
 
 const Header = () => {
     const [modalOn, setModalOn] = useState<boolean>(false);
@@ -24,7 +25,14 @@ const Header = () => {
                 >
                     <Todo>
                         <StyledTodoHeader>todo</StyledTodoHeader>
-                        <TodoList haveProgressButton={true} />
+                        <TodoList
+                            haveProgressButton={true}
+                            setBlocksData={function (
+                                value: React.SetStateAction<BlockData[]>
+                            ): void {
+                                throw new Error("Function not implemented.");
+                            }}
+                        />
                     </Todo>
                 </Modal>
             )}

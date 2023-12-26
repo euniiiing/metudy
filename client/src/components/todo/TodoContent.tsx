@@ -4,12 +4,12 @@ import styled from "styled-components";
 
 interface Props {
     todo: ITodo;
-    makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
+    makeDiarySticker?: (td: ITodo) => void;
 }
 
 const TodoContent = ({ todo, makeDiarySticker = () => {} }: Props) => {
     return (
-        <TodoContentLayout onClick={(e: React.MouseEvent<HTMLDivElement>) => makeDiarySticker(e)}>
+        <TodoContentLayout onClick={() => makeDiarySticker(todo)}>
             <span className={todo.isDone ? "done" : ""}>{todo.content}</span>
         </TodoContentLayout>
     );

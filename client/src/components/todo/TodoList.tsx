@@ -1,30 +1,33 @@
 import React, { MouseEventHandler, ReactNode, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import ITodo from "@/api/todo/Todo";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { getMyTodoList } from "@/api/todo/get-my-todoList";
 import TodoCheckButton from "@/components/todo/TodoCheckButton";
 import TodoContent from "@/components/todo/TodoContent";
 import TodoProgressButton from "@/components/todo/TodoProgressButton";
 import { TodoCard } from "./TodoCard";
 import { myTodoState } from "@/store/atoms/myTodo";
+import { BlockData } from "@/components/feeds/PostingForm";
 
 interface IProps {
     haveProgressButton: boolean;
-    makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
+    setBlocksData: React.Dispatch<React.SetStateAction<BlockData[]>>;
 }
 
-const TodoListMain = ({ haveProgressButton, makeDiarySticker }: IProps) => {
+const TodoListMain = ({ haveProgressButton, setBlocksData }: IProps) => {
     const [todoList, setTodoList] = useRecoilState(myTodoState);
 
     const toggleDoneTodo = (idx: number) => {
-        // const newTodoList: ITodo[] = [...todoList];
-        // newTodoList[idx].isDone = true;
         const newTodoList: ITodo[] = todoList.map((todo, i) =>
             i === idx ? { ...todo, isDone: !todo.isDone } : todo
         );
         setTodoList(newTodoList);
+    };
+
+    const makeDiarySticker = (td: ITodo) => {
+        setBlocksData((prev) => [...prev, { type: "sticker", content: td.content }]);
     };
 
     useEffect(() => {
@@ -51,7 +54,7 @@ const TodoListMain = ({ haveProgressButton, makeDiarySticker }: IProps) => {
         <TodoListLayout>
             {todoList.map((todo: ITodo, idx: number) => {
                 return (
-                    <TodoCard makeDiarySticker={makeDiarySticker}>
+                    <TodoCard>
                         <TodoCard.CheckButton
                             todo={todo}
                             idx={idx}

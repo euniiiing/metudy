@@ -8,10 +8,9 @@ import ITodo from "@/api/todo/Todo";
 
 interface Props {
     children?: ReactNode;
-    makeDiarySticker?: MouseEventHandler<HTMLDivElement>;
 }
 
-const TodoCardMain = ({ children, makeDiarySticker = () => {} }: Props) => {
+const TodoCardMain = ({ children }: Props) => {
     const getComponent = (children: ReactNode, componentName: string): ReactNode => {
         return React.Children.toArray(children).find(
             (child: any) => child.type.name === componentName
