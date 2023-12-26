@@ -22,6 +22,8 @@ const useEditor = (): ReturnType => {
     const blockContainerRef = useRef<HTMLDivElement>(null);
     const focusBlockRef = useRef<HTMLDivElement | undefined>(undefined);
 
+    const isEmptyBlock = () => {};
+
     const moveToNextLine = (e: KeyboardEvent): void => {
         e.preventDefault(); // 자식 div 생성
         if (e.nativeEvent.isComposing) return;
@@ -73,6 +75,10 @@ const useEditor = (): ReturnType => {
                 break;
         }
 
+        if ((focusBlockRef.current?.textContent?.length as number) > 0) {
+            e.preventDefault();
+        }
+
         setBlockInfo((prev): BlockInfo[] => {
             const newBlocks: BlockInfo[] = [...prev];
             if (!focusBlockRef.current) return [];
@@ -87,6 +93,7 @@ const useEditor = (): ReturnType => {
                 moveToNextLine(e);
                 break;
             case "Backspace":
+                console.log("back");
                 moveToPrevLine(e);
                 break;
             default:
@@ -97,6 +104,24 @@ const useEditor = (): ReturnType => {
     useEffect(() => {
         if (!focusBlockRef.current) return;
         focusBlockRef.current.focus();
+
+        console.log(focusBlockRef.current);
+
+        try {
+            const selection: Selection | null = window.getSelection();
+            const range: Range = document.createRange();
+
+            const offset: number = focusBlockRef.current.textContent?.length as number;
+
+            range.setStart(focusBlockRef.current.childNodes[0], offset);
+            range.setEnd(focusBlockRef.current.childNodes[0], offset);
+
+            (selection as Selection).removeAllRanges();
+            (selection as Selection).addRange(range);
+            console.log("new");
+        } catch (e) {
+            console.log(e);
+        }
     }, [blockInfo]);
 
     useEffect(() => {
