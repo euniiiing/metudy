@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Main from "@pages/Main";
 import Feeds from "@pages/Feeds";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LookBack from "@/pages/LookBack";
+import MainLayout from "@/components/layouts/MainLayout";
 import Header from "@/components/header/Header";
 import theme from "@/style/theme";
-import MainLayout from "./components/layouts/MainLayout";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                         <Routes>
                             <Route path="/" element={<Main />} />
                             <Route path="/feeds/*" element={<Feeds />} />
+                            <Route path="/lookback/*" element={<LookBack />} />
                         </Routes>
                     </BrowserRouter>
                 </MainLayout>
