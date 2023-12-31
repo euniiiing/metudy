@@ -59,7 +59,7 @@ const FeedsHeader = styled.div`
 `;
 
 const ButtonBox = styled.div`
-    height: 100%;
+    /* height: 100%; */
     margin: 4em 1em 0 0;
     display: flex;
     flex-direction: column;
