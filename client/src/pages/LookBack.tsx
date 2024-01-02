@@ -1,4 +1,4 @@
-import PostingForm, { BlockData } from "@/components/feeds/PostingForm";
+import PostingForm, { BlockData } from "@/components/PostingForm";
 import { TodoList } from "@/components/todo/TodoList";
 import React from "react";
 import styled from "styled-components";
@@ -14,9 +14,7 @@ const LookBack = () => {
                     }}
                 />
             </StyledTodo>
-            <StyledEditor>
-                <PostingForm />
-            </StyledEditor>
+            <StyledEditor>{/* <PostingForm /> */}</StyledEditor>
         </StyledLookBack>
     );
 };

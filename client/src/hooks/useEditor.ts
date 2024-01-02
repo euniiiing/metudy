@@ -1,5 +1,5 @@
 import React, { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import { BlockData } from "@/components/feeds/PostingForm";
+import { BlockData } from "@/components/PostingForm";
 
 interface Props {
     blocksData: BlockData[];

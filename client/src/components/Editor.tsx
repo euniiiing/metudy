@@ -2,7 +2,7 @@ import React, { KeyboardEvent, MouseEventHandler, useEffect } from "react";
 import styled from "styled-components";
 import useEditor from "@/hooks/useEditor";
 import ITodo from "@/api/todo/Todo";
-import { BlockData } from "@/components/feeds/PostingForm";
+import { BlockData } from "@/components/PostingForm";
 
 interface Props {
     blocksData: BlockData[];
@@ -44,9 +44,8 @@ const Editor = ({ blocksData, setBlocksData }: Props) => {
 };
 
 const EditorLayout = styled.div`
-    border: 1px solid #e3e3e3;
-    border-radius: 1em;
     width: 100%;
+    height: 100%;
     padding-bottom: 0.8em;
 
     *:focus {

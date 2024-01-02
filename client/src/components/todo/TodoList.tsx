@@ -9,7 +9,7 @@ import TodoContent from "@/components/todo/TodoContent";
 import TodoProgressButton from "@/components/todo/TodoProgressButton";
 import { TodoCard } from "./TodoCard";
 import { myTodoState } from "@/store/atoms/myTodo";
-import { BlockData } from "@/components/feeds/PostingForm";
+import { BlockData } from "@/components/PostingForm";
 
 interface IProps {
     haveProgressButton: boolean;
