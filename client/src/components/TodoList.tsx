@@ -6,6 +6,7 @@ import ITodo from "@/api/todo/Todo";
 import { myTodoState } from "@/store/atoms/myTodo";
 import { BlockData } from "@/components/PostingForm";
 import TodoItem from "./todo/TodoItem";
+import TodoCard from "./todo/TodoCard";
 
 interface IProps {
     haveProgressButton?: boolean;
@@ -14,13 +15,6 @@ interface IProps {
 const TodoList = ({ haveProgressButton = false }: IProps) => {
     const [todoListOfDay, setTodoListOfDay] = useRecoilState(myTodoState);
     const [todoListOfMonth, setTodoListOfMonth] = useState<ITodo[][]>([[]]);
-
-    const toggleDoneTodo = (idx: number) => {
-        const newTodoList: ITodo[] = todoListOfDay.map((todo, i) =>
-            i === idx ? { ...todo, isDone: !todo.isDone } : todo
-        );
-        setTodoListOfDay(newTodoList);
-    };
 
     useEffect(() => {
         // setTodoListOfDay(() => [
@@ -117,22 +111,10 @@ const TodoList = ({ haveProgressButton = false }: IProps) => {
         <TodoListLayout>
             <VLine />
             <HeaderOfMonth>JAN, 2024</HeaderOfMonth>
-            {todoListOfMonth.map((todoListOfMonth, day) => {
+            {todoListOfMonth.map((todoListOfDay, day) => {
                 return (
                     <TodoCardWrapper alignitems={day % 2 === 0 ? "flex-start" : "flex-end"}>
-                        <TodoCard>
-                            {todoListOfMonth.map((todo: ITodo, idx: number) => {
-                                return (
-                                    <TodoItem
-                                        todo={todo}
-                                        idx={idx}
-                                        toggleDoneTodo={function (idx: number): void {
-                                            throw new Error("Function not implemented.");
-                                        }}
-                                    />
-                                );
-                            })}
-                        </TodoCard>
+                        <TodoCard todoListOfDay={todoListOfDay} />
                     </TodoCardWrapper>
                 );
             })}
@@ -181,14 +163,4 @@ const TodoCardWrapper = styled("div")<StyleProps>`
     align-items: ${({ alignitems }) => alignitems};
     width: 100%;
 `;
-
-const TodoCard = styled("div")`
-    box-sizing: border-box;
-    width: 46%;
-    background-color: white;
-    padding: 13px;
-    border: 1px solid #dbdbdb;
-    border-radius: 10px;
-`;
-
 export default TodoList;

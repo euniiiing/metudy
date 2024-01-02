@@ -5,19 +5,13 @@ import ITodo from "@/api/todo/Todo";
 
 interface Props {
     todo: ITodo;
-    idx: number;
-    toggleDoneTodo: (idx: number) => void;
 }
 
-const TodoItem = ({ todo, idx, toggleDoneTodo }: Props) => {
+const TodoItem = ({ todo }: Props) => {
     return (
         <StyledTodoItem>
-            <TodoCheckButtonLayout onClick={() => toggleDoneTodo(idx)}>
-                {todo.isDone ? "O" : "X"}
-            </TodoCheckButtonLayout>
-            <TodoContentLayout>
-                <span className={todo.isDone ? "done" : ""}>{todo.content}</span>
-            </TodoContentLayout>
+            <TodoCheckButton>{todo.isDone ? "O" : "X"}</TodoCheckButton>
+            <TodoContent>{todo.content}</TodoContent>
         </StyledTodoItem>
     );
 };
@@ -26,12 +20,8 @@ const StyledTodoItem = styled.div`
     display: flex;
 `;
 
-const TodoCheckButtonLayout = styled.button``;
+const TodoCheckButton = styled.button``;
 
-const TodoContentLayout = styled.div`
-    .done {
-        text-decoration: line-through;
-    }
-`;
+const TodoContent = styled.div``;
 
 export default TodoItem;
