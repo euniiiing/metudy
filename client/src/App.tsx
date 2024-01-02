@@ -7,7 +7,7 @@ import Main from "@pages/Main";
 import Feeds from "@pages/Feeds";
 import LookBack from "@/pages/LookBack";
 import MainLayout from "@/components/layouts/MainLayout";
-import Header from "@/components/header/Header";
+import Header from "@/components/Header";
 import theme from "@/style/theme";
 
 function App() {
@@ -15,8 +15,8 @@ function App() {
         <RecoilRoot>
             <ThemeProvider theme={theme}>
                 <MainLayout>
-                    <Header />
                     <BrowserRouter>
+                        <Header />
                         <Routes>
                             <Route path="/" element={<Main />} />
                             <Route path="/feeds/*" element={<Feeds />} />
