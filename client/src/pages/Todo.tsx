@@ -1,12 +1,16 @@
-import PostingForm from "@/components/PostingForm";
 import React from "react";
 import styled from "styled-components";
+
+import PostingForm from "@/components/PostingForm";
+import TodoList from "@/components/TodoList";
 
 const Todo = () => {
     return (
         <StyledTodo>
-            <MyTodoTimeLine></MyTodoTimeLine>
-            <PostingForm width="650px" height="90%" />
+            <TodoTimeLine>
+                <TodoList />
+            </TodoTimeLine>
+            <PostingForm width="600px" height="90%" />
         </StyledTodo>
     );
 };
@@ -16,13 +20,12 @@ const StyledTodo = styled.main`
     flex: 1;
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
 `;
 
-const MyTodoTimeLine = styled.div`
-    background-color: #848d95;
-    width: 350px;
+const TodoTimeLine = styled.div`
+    width: 600px;
     height: 90%;
-    margin: 0 50px 0 50px;
 `;
 
 export default Todo;
