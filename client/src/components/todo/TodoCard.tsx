@@ -11,6 +11,7 @@ interface TodoCardProps {
 const TodoCard = ({ todoListOfDay }: TodoCardProps) => {
     return (
         <StyledTodoCard>
+            <HeaderOfDay>01.02 월</HeaderOfDay>
             {todoListOfDay.map((todo: ITodo, idx: number) => {
                 return <TodoItem todo={todo} />;
             })}
@@ -25,6 +26,13 @@ const StyledTodoCard = styled.div`
     padding: 13px;
     border: 1px solid #dbdbdb;
     border-radius: 10px;
+`;
+
+const HeaderOfDay = styled.div`
+    padding-bottom: 5px;
+    border-bottom: 1px solid #dbdbdb;
+    color: #575757;
+    font-weight: bold;
 `;
 
 export default TodoCard;

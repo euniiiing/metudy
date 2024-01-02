@@ -17,10 +17,10 @@ const Todo = () => {
 
 const StyledTodo = styled.main`
     background-color: #f8f8f8;
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    height: 100%;
 `;
 
 const TodoTimeLine = styled.div`

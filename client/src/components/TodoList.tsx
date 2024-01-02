@@ -17,89 +17,54 @@ const TodoList = ({ haveProgressButton = false }: IProps) => {
     const [todoListOfMonth, setTodoListOfMonth] = useState<ITodo[][]>([[]]);
 
     useEffect(() => {
-        // setTodoListOfDay(() => [
-        //     {
-        //         content: "밥 먹기",
-        //         progress: 0,
-        //         isDone: false,
-        //     },
-        //     {
-        //         content: "양치하기",
-        //         progress: 0,
-        //         isDone: true,
-        //     },
-        //     {
-        //         content: "샤워하기",
-        //         progress: 0,
-        //         isDone: true,
-        //     },
-        // ]);
-
         setTodoListOfMonth(() => [
             [
                 {
-                    content: "밥 먹기",
+                    content: "메인페이지 UI 설계",
                     progress: 0,
                     isDone: false,
                 },
                 {
-                    content: "양치하기",
+                    content: "2주차 스프린트 회의",
                     progress: 0,
                     isDone: true,
                 },
                 {
-                    content: "샤워하기",
+                    content: "백엔드 ERD 회의",
                     progress: 0,
                     isDone: true,
                 },
             ],
             [
                 {
-                    content: "밥 먹기",
+                    content: "메인페이지 UI 설계",
                     progress: 0,
                     isDone: false,
                 },
                 {
-                    content: "양치하기",
+                    content: "2주차 스프린트 회의",
                     progress: 0,
                     isDone: true,
                 },
                 {
-                    content: "샤워하기",
+                    content: "백엔드 ERD 회의",
                     progress: 0,
                     isDone: true,
                 },
             ],
             [
                 {
-                    content: "밥 먹기",
+                    content: "메인페이지 UI 설계",
                     progress: 0,
                     isDone: false,
                 },
                 {
-                    content: "양치하기",
+                    content: "2주차 스프린트 회의",
                     progress: 0,
                     isDone: true,
                 },
                 {
-                    content: "샤워하기",
-                    progress: 0,
-                    isDone: true,
-                },
-            ],
-            [
-                {
-                    content: "밥 먹기",
-                    progress: 0,
-                    isDone: false,
-                },
-                {
-                    content: "양치하기",
-                    progress: 0,
-                    isDone: true,
-                },
-                {
-                    content: "샤워하기",
+                    content: "백엔드 ERD 회의",
                     progress: 0,
                     isDone: true,
                 },
@@ -113,7 +78,8 @@ const TodoList = ({ haveProgressButton = false }: IProps) => {
             <HeaderOfMonth>JAN, 2024</HeaderOfMonth>
             {todoListOfMonth.map((todoListOfDay, day) => {
                 return (
-                    <TodoCardWrapper alignitems={day % 2 === 0 ? "flex-start" : "flex-end"}>
+                    <TodoCardWrapper order={day}>
+                        <Dot />
                         <TodoCard todoListOfDay={todoListOfDay} />
                     </TodoCardWrapper>
                 );
@@ -123,7 +89,7 @@ const TodoList = ({ haveProgressButton = false }: IProps) => {
 };
 
 interface StyleProps {
-    alignitems: string;
+    order: number;
 }
 
 const TodoListLayout = styled.div`
@@ -134,6 +100,7 @@ const TodoListLayout = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: scroll;
 `;
 
 const VLine = styled.div`
@@ -158,9 +125,21 @@ const HeaderOfMonth = styled.div`
 
 const TodoCardWrapper = styled("div")<StyleProps>`
     box-sizing: border-box;
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: ${({ alignitems }) => alignitems};
+    align-items: ${({ order }) => (order % 2 === 0 ? "flex-start" : "flex-end")};
     width: 100%;
 `;
+
+const Dot = styled.div`
+    position: absolute;
+    top: 48%;
+    left: calc(50% - 5px);
+    width: 10px;
+    height: 10px;
+    background-color: #6d6d6d;
+    border-radius: 100%;
+`;
+
 export default TodoList;
