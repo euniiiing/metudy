@@ -35,9 +35,9 @@ const PostingForm = ({ ...props }: PostingFormProps) => {
         <PostingFormLayout {...props}>
             <TextBlock
                 onKeyDown={handleInputTitle}
-                height={"35px"}
-                fontSize={"24px"}
-                paddingTop={"3px"}
+                height={"46px"}
+                fontSize={"32px"}
+                paddingTop={"2px"}
             />
             <Editor blocksData={blocksData} setBlocksData={setBlocksData} />
         </PostingFormLayout>

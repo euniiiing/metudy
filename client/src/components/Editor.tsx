@@ -3,6 +3,7 @@ import styled from "styled-components";
 import useEditor from "@/hooks/useEditor";
 import ITodo from "@/api/todo/Todo";
 import { BlockData } from "@/components/PostingForm";
+import TextBlock from "./TextBlock";
 
 interface Props {
     blocksData: BlockData[];
@@ -31,14 +32,11 @@ const Editor = ({ blocksData, setBlocksData }: Props) => {
                 }
                 return (
                     <TextBlock
-                        data-index={idx}
-                        contentEditable={true}
-                        suppressContentEditableWarning={true}
-                        onKeyDown={(e: KeyboardEvent) => handleKeyboard(e)}
-                        key={idx}
-                    >
-                        {bd.content}
-                    </TextBlock>
+                        onKeyDown={handleKeyboard}
+                        height={"28px"}
+                        fontSize={"20px"}
+                        paddingTop={"1px"}
+                    />
                 );
             })}
         </EditorLayout>
@@ -63,13 +61,6 @@ const StickerBlock = styled.div`
     padding-left: 15px;
     background-color: aliceblue;
     margin: 3px;
-`;
-
-const TextBlock = styled.div`
-    box-sizing: border-box;
-    width: 100%;
-    padding-top: 10px;
-    padding-left: 15px;
 `;
 
 export default Editor;
