@@ -18,6 +18,7 @@ const Todo = () => {
 const StyledTodo = styled.main`
     background-color: #f8f8f8;
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: space-evenly;
     height: 100%;

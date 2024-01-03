@@ -13,7 +13,7 @@ const TodoCard = ({ todoListOfDay }: TodoCardProps) => {
         <StyledTodoCard>
             <HeaderOfDay>01.02 월</HeaderOfDay>
             {todoListOfDay.map((todo: ITodo, idx: number) => {
-                return <TodoItem todo={todo} />;
+                return <TodoItem todo={todo} key={idx} />;
             })}
         </StyledTodoCard>
     );

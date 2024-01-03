@@ -23,6 +23,7 @@ const Editor = ({ blocksData, setBlocksData }: Props) => {
                             suppressContentEditableWarning={true}
                             onKeyDown={(e: KeyboardEvent) => handleKeyboard(e)}
                             className={bd.type === "sticker" ? "sticker-block" : ""}
+                            key={idx}
                         >
                             {bd.content}
                         </StickerBlock>
@@ -34,6 +35,7 @@ const Editor = ({ blocksData, setBlocksData }: Props) => {
                         contentEditable={true}
                         suppressContentEditableWarning={true}
                         onKeyDown={(e: KeyboardEvent) => handleKeyboard(e)}
+                        key={idx}
                     >
                         {bd.content}
                     </TextBlock>

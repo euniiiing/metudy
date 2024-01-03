@@ -16,7 +16,11 @@ const Header = () => {
     return (
         <StyledHeader>
             {pages.map(({ title, link }, idx) => {
-                return <Link to={link}>{title}</Link>;
+                return (
+                    <Link to={link} key={idx}>
+                        {title}
+                    </Link>
+                );
             })}
         </StyledHeader>
     );

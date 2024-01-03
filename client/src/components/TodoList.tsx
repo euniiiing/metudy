@@ -7,6 +7,7 @@ import { myTodoState } from "@/store/atoms/myTodo";
 import { BlockData } from "@/components/PostingForm";
 import TodoItem from "./todo/TodoItem";
 import TodoCard from "./todo/TodoCard";
+import useGetMyTodoList from "@/queries/useGetMyTodoList";
 
 interface IProps {
     haveProgressButton?: boolean;
@@ -15,6 +16,9 @@ interface IProps {
 const TodoList = ({ haveProgressButton = false }: IProps) => {
     const [todoListOfDay, setTodoListOfDay] = useRecoilState(myTodoState);
     const [todoListOfMonth, setTodoListOfMonth] = useState<ITodo[][]>([[]]);
+
+    const data = useGetMyTodoList();
+    console.log(data);
 
     useEffect(() => {
         setTodoListOfMonth(() => [
@@ -78,7 +82,7 @@ const TodoList = ({ haveProgressButton = false }: IProps) => {
             <HeaderOfMonth>JAN, 2024</HeaderOfMonth>
             {todoListOfMonth.map((todoListOfDay, day) => {
                 return (
-                    <TodoCardWrapper order={day}>
+                    <TodoCardWrapper order={day} key={day}>
                         <Dot />
                         <TodoCard todoListOfDay={todoListOfDay} />
                     </TodoCardWrapper>
