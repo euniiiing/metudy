@@ -1,25 +1,40 @@
-import React, { KeyboardEventHandler } from "react";
+import React, { FormEventHandler, KeyboardEventHandler, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 interface StyleProps {
     height: string;
     fontSize: string;
-    paddingTop: string;
+    $paddingTop: string;
 }
 
 interface TextBlockProps extends StyleProps {
+    initText?: string;
+    onInput: FormEventHandler<HTMLDivElement>;
     onKeyDown: KeyboardEventHandler<Element>;
 }
 
-const TextBlock = ({ onKeyDown, ...props }: TextBlockProps) => {
-    return <StyledTextBlock contentEditable onKeyDown={onKeyDown} {...props} />;
+const TextBlock = ({ initText, onInput, onKeyDown, ...props }: TextBlockProps) => {
+    const blockRef = useRef<HTMLDivElement>(null);
+
+    return (
+        <StyledTextBlock
+            contentEditable
+            ref={blockRef}
+            onInput={onInput}
+            onKeyDown={onKeyDown}
+            suppressContentEditableWarning
+            {...props}
+        >
+            {initText}
+        </StyledTextBlock>
+    );
 };
 
 const StyledTextBlock = styled("div")<StyleProps>`
     box-sizing: border-box;
     width: 100%;
     height: ${({ height }) => height};
-    padding-top: ${({ paddingTop }) => (paddingTop ? paddingTop : 0)};
+    padding-top: ${({ $paddingTop }) => ($paddingTop ? $paddingTop : 0)};
     padding-left: 5px;
     margin-bottom: 5px;
     font-size: ${({ fontSize }) => fontSize};

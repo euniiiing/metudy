@@ -18,10 +18,15 @@ const Editor = ({ blocksData, setBlocksData }: Props) => {
             {blocksData.map((bd: BlockData, idx: number) => {
                 return (
                     <TextBlock
+                        initText={bd.content}
                         onKeyDown={handleKeyboard}
                         height={"28px"}
                         fontSize={"18px"}
-                        paddingTop={"3px"}
+                        $paddingTop={"3px"}
+                        key={idx}
+                        onInput={function (event: React.FormEvent<HTMLDivElement>): void {
+                            throw new Error("Function not implemented.");
+                        }}
                     />
                 );
             })}

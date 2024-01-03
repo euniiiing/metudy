@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, KeyboardEventHandler, useState } from "react";
+import React, { FormEvent, KeyboardEvent, KeyboardEventHandler, useState } from "react";
 import styled from "styled-components";
 
 import Editor from "@/components/Editor";
@@ -24,23 +24,30 @@ const PostingForm = ({ ...props }: PostingFormProps) => {
         { type: "text", content: "" },
     ]);
 
-    const [postTitle, setPostTitle] = useState<string>("");
-    const handleInputTitle = (e: KeyboardEvent) => {
+    const [initText] = useState<string>("Next.js");
+    const [, setPostTitle] = useState<string>(initText);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
         if (e.code === "Enter") {
             e.preventDefault();
         }
     };
+    const handleInput = (e: FormEvent) => {
+        setPostTitle(e.currentTarget.innerHTML);
+    };
 
     return (
         <PostingFormLayout {...props}>
-            <Title>
+            <PostTitle>
                 <TextBlock
-                    onKeyDown={handleInputTitle}
+                    onInput={handleInput}
+                    onKeyDown={handleKeyDown}
                     height={"46px"}
                     fontSize={"28px"}
-                    paddingTop={"6px"}
+                    $paddingTop={"6px"}
+                    initText={initText}
                 />
-            </Title>
+            </PostTitle>
             <Editor blocksData={blocksData} setBlocksData={setBlocksData} />
         </PostingFormLayout>
     );
@@ -56,7 +63,7 @@ const PostingFormLayout = styled("div")<StyleProps>`
     padding: 2em;
 `;
 
-const Title = styled.div`
+const PostTitle = styled.div`
     padding-bottom: 5px;
     margin-bottom: 10px;
 
