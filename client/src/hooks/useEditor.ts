@@ -95,26 +95,20 @@ const useEditor = ({ blocksData, setBlocksData }: Props): ReturnType => {
     };
 
     useEffect(() => {
-        if (!focusBlockRef.current) return;
-        focusBlockRef.current.focus();
-
-        console.log(focusBlockRef.current);
-
-        try {
-            const selection: Selection | null = window.getSelection();
-            const range: Range = document.createRange();
-
-            const offset: number = focusBlockRef.current.textContent?.length as number;
-
-            range.setStart(focusBlockRef.current.childNodes[0], offset);
-            range.setEnd(focusBlockRef.current.childNodes[0], offset);
-
-            (selection as Selection).removeAllRanges();
-            (selection as Selection).addRange(range);
-            console.log("new");
-        } catch (e) {
-            console.log(e);
-        }
+        // if (!focusBlockRef.current) return;
+        // focusBlockRef.current.focus();
+        // try {
+        //     const selection: Selection | null = window.getSelection();
+        //     const range: Range = document.createRange();
+        //     const offset: number = focusBlockRef.current.textContent?.length as number;
+        //     range.setStart(focusBlockRef.current.childNodes[0], offset);
+        //     range.setEnd(focusBlockRef.current.childNodes[0], offset);
+        //     (selection as Selection).removeAllRanges();
+        //     (selection as Selection).addRange(range);
+        //     console.log("new");
+        // } catch (e) {
+        //     console.log(e);
+        // }
     }, [blocksData]);
 
     useEffect(() => {
