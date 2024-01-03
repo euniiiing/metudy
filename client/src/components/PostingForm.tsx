@@ -33,12 +33,14 @@ const PostingForm = ({ ...props }: PostingFormProps) => {
 
     return (
         <PostingFormLayout {...props}>
-            <TextBlock
-                onKeyDown={handleInputTitle}
-                height={"46px"}
-                fontSize={"32px"}
-                paddingTop={"2px"}
-            />
+            <Title>
+                <TextBlock
+                    onKeyDown={handleInputTitle}
+                    height={"46px"}
+                    fontSize={"28px"}
+                    paddingTop={"6px"}
+                />
+            </Title>
             <Editor blocksData={blocksData} setBlocksData={setBlocksData} />
         </PostingFormLayout>
     );
@@ -47,11 +49,18 @@ const PostingForm = ({ ...props }: PostingFormProps) => {
 const PostingFormLayout = styled("div")<StyleProps>`
     box-sizing: border-box;
     background-color: white;
-    border-radius: 1em;
+    /* border-radius: 1em; */
     box-shadow: 1px 1px 25px 2px #cfcfcf;
     width: ${({ width }) => width};
     height: ${({ height }) => height};
     padding: 2em;
+`;
+
+const Title = styled.div`
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+
+    border-bottom: 1px solid #cfcfcf;
 `;
 
 export default PostingForm;
