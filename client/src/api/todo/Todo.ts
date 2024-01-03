@@ -1,5 +1,5 @@
 export default interface ITodo {
+    id: number;
     content: string;
-    progress: number;
     isDone: boolean;
 }

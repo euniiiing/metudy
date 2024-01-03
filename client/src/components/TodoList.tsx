@@ -1,86 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import React from "react";
 import styled from "styled-components";
 
-import ITodo from "@/api/todo/Todo";
-import { myTodoState } from "@/store/atoms/myTodo";
-import { BlockData } from "@/components/PostingForm";
-import TodoItem from "./todo/TodoItem";
-import TodoCard from "./todo/TodoCard";
-import useGetMyTodoList from "@/queries/useGetMyTodoList";
+import TodoCard from "@/components/todo/TodoCard";
+import useGetMyTodo from "@/queries/useGetMyTodo";
 
-interface IProps {
-    haveProgressButton?: boolean;
-}
+interface IProps {}
 
-const TodoList = ({ haveProgressButton = false }: IProps) => {
-    const [todoListOfDay, setTodoListOfDay] = useRecoilState(myTodoState);
-    const [todoListOfMonth, setTodoListOfMonth] = useState<ITodo[][]>([[]]);
-
-    const data = useGetMyTodoList();
-    console.log(data);
-
-    useEffect(() => {
-        setTodoListOfMonth(() => [
-            [
-                {
-                    content: "메인페이지 UI 설계",
-                    progress: 0,
-                    isDone: false,
-                },
-                {
-                    content: "2주차 스프린트 회의",
-                    progress: 0,
-                    isDone: true,
-                },
-                {
-                    content: "백엔드 ERD 회의",
-                    progress: 0,
-                    isDone: true,
-                },
-            ],
-            [
-                {
-                    content: "메인페이지 UI 설계",
-                    progress: 0,
-                    isDone: false,
-                },
-                {
-                    content: "2주차 스프린트 회의",
-                    progress: 0,
-                    isDone: true,
-                },
-                {
-                    content: "백엔드 ERD 회의",
-                    progress: 0,
-                    isDone: true,
-                },
-            ],
-            [
-                {
-                    content: "메인페이지 UI 설계",
-                    progress: 0,
-                    isDone: false,
-                },
-                {
-                    content: "2주차 스프린트 회의",
-                    progress: 0,
-                    isDone: true,
-                },
-                {
-                    content: "백엔드 ERD 회의",
-                    progress: 0,
-                    isDone: true,
-                },
-            ],
-        ]);
-    }, []);
+const TodoList = ({}: IProps) => {
+    const { data, isLoading } = useGetMyTodo();
 
     return (
         <TodoListLayout>
             <VLine />
             <HeaderOfMonth>JAN, 2024</HeaderOfMonth>
-            {todoListOfMonth.map((todoListOfDay, day) => {
+            {data?.map((todoListOfDay, day) => {
                 return (
                     <TodoCardWrapper order={day} key={day}>
                         <Dot />
