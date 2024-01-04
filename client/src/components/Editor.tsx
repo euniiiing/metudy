@@ -1,9 +1,9 @@
-import React, { KeyboardEvent, MouseEventHandler, useEffect } from "react";
+import React, { FormEvent, useRef } from "react";
 import styled from "styled-components";
 import useEditor from "@/hooks/useEditor";
-import ITodo from "@/api/todo/Todo";
 import { BlockData } from "@/components/PostingForm";
 import TextBlock from "./TextBlock";
+import { useUploadPost } from "@/queries/useUploadPost";
 
 interface Props {
     blocksData: BlockData[];
@@ -11,22 +11,31 @@ interface Props {
 }
 
 const Editor = ({ blocksData, setBlocksData }: Props) => {
-    const { blockContainerRef, handleKeyboard } = useEditor({ blocksData, setBlocksData });
+    const blocksContainer = useRef<HTMLDivElement>(null);
+
+    const { handleKeyboard } = useEditor({ blocksContainer, blocksData, setBlocksData });
+
+    const handleInput = (e: FormEvent) => {};
+
+    const mutateSync = useUploadPost();
+
+    const upload = () => {
+        mutateSync.mutate();
+    };
 
     return (
-        <EditorLayout ref={blockContainerRef}>
+        <EditorLayout ref={blocksContainer}>
+            <button onClick={upload}>upload</button>
             {blocksData.map((bd: BlockData, idx: number) => {
                 return (
                     <TextBlock
                         initText={bd.content}
                         onKeyDown={handleKeyboard}
+                        onInput={handleInput}
+                        key={idx}
                         height={"28px"}
                         fontSize={"18px"}
-                        $paddingTop={"3px"}
-                        key={idx}
-                        onInput={function (event: React.FormEvent<HTMLDivElement>): void {
-                            throw new Error("Function not implemented.");
-                        }}
+                        padding={"6px"}
                     />
                 );
             })}

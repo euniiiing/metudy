@@ -1,4 +1,4 @@
-import React, { FormEvent, KeyboardEvent, KeyboardEventHandler, useState } from "react";
+import React, { FormEvent, KeyboardEvent, KeyboardEventHandler, useRef, useState } from "react";
 import styled from "styled-components";
 
 import Editor from "@/components/Editor";
@@ -19,9 +19,9 @@ interface PostingFormProps extends StyleProps {}
 
 const PostingForm = ({ ...props }: PostingFormProps) => {
     const [blocksData, setBlocksData] = useState<BlockData[]>([
-        { type: "text", content: "" },
-        { type: "text", content: "" },
-        { type: "text", content: "" },
+        { type: "text", content: "안" },
+        { type: "text", content: "녕" },
+        { type: "text", content: "안녕" },
     ]);
 
     const [initText] = useState<string>("Next.js");
@@ -44,7 +44,7 @@ const PostingForm = ({ ...props }: PostingFormProps) => {
                     onKeyDown={handleKeyDown}
                     height={"46px"}
                     fontSize={"28px"}
-                    $paddingTop={"6px"}
+                    padding={"6px"}
                     initText={initText}
                 />
             </PostTitle>

@@ -4,7 +4,7 @@ import styled from "styled-components";
 interface StyleProps {
     height: string;
     fontSize: string;
-    $paddingTop: string;
+    padding: string;
 }
 
 interface TextBlockProps extends StyleProps {
@@ -33,8 +33,7 @@ const TextBlock = ({ initText, onInput, onKeyDown, ...props }: TextBlockProps) =
 const StyledTextBlock = styled("div")<StyleProps>`
     box-sizing: border-box;
     width: 100%;
-    height: ${({ height }) => height};
-    padding-top: ${({ $paddingTop }) => ($paddingTop ? $paddingTop : 0)};
+    padding: ${({ padding }) => (padding ? padding : 0)};
     padding-left: 5px;
     margin-bottom: 5px;
     font-size: ${({ fontSize }) => fontSize};
