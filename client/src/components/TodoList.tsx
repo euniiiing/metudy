@@ -15,9 +15,20 @@ const TodoList = ({}: IProps) => {
             <HeaderOfMonth>JAN, 2024</HeaderOfMonth>
             {data?.map((todoListOfDay, day) => {
                 return (
-                    <TodoCardWrapper order={day} key={day}>
-                        <Dot />
-                        <TodoCard todoListOfDay={todoListOfDay} />
+                    <TodoCardWrapper key={day}>
+                        {day % 2 === 0 ? (
+                            <>
+                                <TodoCard todoListOfDay={todoListOfDay} />
+                                <Dot />
+                                <FakeCard />
+                            </>
+                        ) : (
+                            <>
+                                <FakeCard />
+                                <Dot />
+                                <TodoCard todoListOfDay={todoListOfDay} />
+                            </>
+                        )}
                     </TodoCardWrapper>
                 );
             })}
@@ -30,14 +41,12 @@ interface StyleProps {
 }
 
 const TodoListLayout = styled.div`
-    position: relative;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: scroll;
 `;
 
 const VLine = styled.div`
@@ -60,23 +69,29 @@ const HeaderOfMonth = styled.div`
     margin-bottom: 30px;
 `;
 
-const TodoCardWrapper = styled("div")<StyleProps>`
-    box-sizing: border-box;
-    position: relative;
+const TodoCardWrapper = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: ${({ order }) => (order % 2 === 0 ? "flex-start" : "flex-end")};
+    align-items: center;
     width: 100%;
+    justify-content: space-between;
+`;
+
+const FakeCard = styled.div`
+    visibility: hidden;
+    box-sizing: border-box;
+    width: 46%;
+    background-color: white;
+    padding: 13px;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
 `;
 
 const Dot = styled.div`
-    position: absolute;
-    top: 48%;
-    left: calc(50% - 5px);
     width: 10px;
     height: 10px;
     background-color: #6d6d6d;
     border-radius: 100%;
+    z-index: 1;
 `;
 
 export default TodoList;

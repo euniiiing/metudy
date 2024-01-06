@@ -1,27 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import ITodo from "@/api/todo/Todo";
 import TodoItem from "@/components/todo/TodoItem";
 import Edit from "@/components/icons/Edit";
+import Modal from "../common/Modal";
 
 interface TodoCardProps {
     todoListOfDay: ITodo[];
 }
 
 const TodoCard = ({ todoListOfDay }: TodoCardProps) => {
+    const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+
     const isToday = (): boolean => {
         return true;
     };
 
     return (
         <StyledTodoCard>
-            {isToday() && (
-                <EditButton>
-                    <Edit />
-                </EditButton>
-            )}
-            <HeaderOfDay>01.02 월</HeaderOfDay>
+            <Modal $ismodalon={openEditModal} width="25em" height="30em" backgroundcolor="pink">
+                edit todo
+            </Modal>
+            <Header>
+                <Day>01.02 월</Day>
+                {isToday() && (
+                    <EditButton onClick={() => setOpenEditModal(true)}>
+                        <Edit />
+                    </EditButton>
+                )}
+            </Header>
             {todoListOfDay.map((todo: ITodo, idx: number) => {
                 return <TodoItem todo={todo} key={idx} />;
             })}
@@ -30,7 +38,6 @@ const TodoCard = ({ todoListOfDay }: TodoCardProps) => {
 };
 
 const StyledTodoCard = styled.div`
-    position: relative;
     box-sizing: border-box;
     width: 46%;
     background-color: white;
@@ -39,15 +46,19 @@ const StyledTodoCard = styled.div`
     border-radius: 10px;
 `;
 
-const HeaderOfDay = styled.div`
-    padding-bottom: 5px;
+const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 7px;
     border-bottom: 1px solid #dbdbdb;
+`;
+
+const Day = styled.span`
     color: #575757;
     font-weight: bold;
 `;
 
 const EditButton = styled.button`
-    position: absolute;
     right: 13px;
     top: 9px;
     background-color: transparent;
