@@ -6,6 +6,7 @@ import TodoItem from "@/components/todo/TodoItem";
 import Edit from "@/components/icons/Edit";
 import Modal from "@/components/common/Modal";
 import { useModal } from "@/hooks/useModal";
+import Button from "../common/Button";
 
 interface TodoCardProps {
     todoListOfDay: ITodo[];
@@ -27,11 +28,7 @@ const TodoCard = ({ todoListOfDay }: TodoCardProps) => {
             )}
             <Header>
                 <Day>01.02 월</Day>
-                {isToday() && (
-                    <EditButton onClick={openModal}>
-                        <Edit />
-                    </EditButton>
-                )}
+                {isToday() && <Button Content={Edit} onClick={openModal} />}
             </Header>
             {todoListOfDay.map((todo: ITodo, idx: number) => {
                 return <TodoItem todo={todo} key={idx} />;
