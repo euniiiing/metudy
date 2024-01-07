@@ -19,9 +19,7 @@ const TodoCard = ({ todoListOfDay }: TodoCardProps) => {
 
     return (
         <StyledTodoCard>
-            <Modal $ismodalon={openEditModal} width="25em" height="30em" backgroundcolor="pink">
-                edit todo
-            </Modal>
+            <Modal $ismodalon={openEditModal}>edit todo</Modal>
             <Header>
                 <Day>01.02 월</Day>
                 {isToday() && (

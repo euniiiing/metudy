@@ -1,38 +1,23 @@
-import React, { PropsWithChildren, useEffect } from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 
-interface StyleProps {
-    top?: string;
-    left?: string;
-    right?: string;
-    width?: string;
-    height?: string;
-    backgroundcolor?: string;
-    borderRadius?: string;
-    padding?: string;
+interface ModalProps {
+    children: ReactNode;
     $ismodalon: boolean;
 }
 
-interface Props extends StyleProps {}
-
-const Modal = ({ children, ...props }: PropsWithChildren<Props>) => {
-    return <ModalLayout {...props}>{children}</ModalLayout>;
+const Modal = ({ children, ...props }: ModalProps) => {
+    return <StyledModal {...props}>{children}</StyledModal>;
 };
 
-const ModalLayout = styled("div")<StyleProps>`
+const StyledModal = styled.div<{ $ismodalon: boolean }>`
     display: ${({ $ismodalon }) => ($ismodalon ? "flex" : "none")};
     position: absolute;
-    background-color: ${({ backgroundcolor }) => backgroundcolor || "gray"};
-    top: ${({ top }) => top || ""};
-    right: ${({ right }) => right || ""};
-    left: ${({ left }) => left || ""};
-    width: ${({ width }) => width || 0};
-    height: ${({ height }) => height || 0};
-    padding: ${({ padding }) => padding || 0};
-    border-radius: ${({ borderRadius }) => borderRadius ?? 0};
-    /* transform: translate(-50%, -50%); */
-    justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     align-items: center;
+    z-index: 100;
 `;
 
 export default Modal;
