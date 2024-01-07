@@ -3,15 +3,23 @@ import styled from "styled-components";
 
 interface ModalProps {
     children: ReactNode;
-    $ismodalon: boolean;
+    open: boolean;
+    closeModal: () => void;
 }
 
 const Modal = ({ children, ...props }: ModalProps) => {
-    return <StyledModal {...props}>{children}</StyledModal>;
+    const { open, closeModal } = props;
+
+    return (
+        <StyledModal open={open}>
+            <button onClick={closeModal}>close</button>
+            {children}
+        </StyledModal>
+    );
 };
 
-const StyledModal = styled.div<{ $ismodalon: boolean }>`
-    display: ${({ $ismodalon }) => ($ismodalon ? "flex" : "none")};
+const StyledModal = styled.div<{ open: boolean }>`
+    ${({ open }) => !open && `display:none;`}
     position: absolute;
     top: 50%;
     left: 50%;

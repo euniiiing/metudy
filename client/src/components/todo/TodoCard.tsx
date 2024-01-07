@@ -4,14 +4,15 @@ import styled from "styled-components";
 import ITodo from "@/api/todo/Todo";
 import TodoItem from "@/components/todo/TodoItem";
 import Edit from "@/components/icons/Edit";
-import Modal from "../common/Modal";
+import Modal from "@/components/common/Modal";
+import { useModal } from "@/hooks/useModal";
 
 interface TodoCardProps {
     todoListOfDay: ITodo[];
 }
 
 const TodoCard = ({ todoListOfDay }: TodoCardProps) => {
-    const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+    const { open, openModal, closeModal } = useModal();
 
     const isToday = (): boolean => {
         return true;
@@ -19,11 +20,15 @@ const TodoCard = ({ todoListOfDay }: TodoCardProps) => {
 
     return (
         <StyledTodoCard>
-            <Modal $ismodalon={openEditModal}>edit todo</Modal>
+            {open && (
+                <Modal open={open} closeModal={closeModal}>
+                    edit todo
+                </Modal>
+            )}
             <Header>
                 <Day>01.02 월</Day>
                 {isToday() && (
-                    <EditButton onClick={() => setOpenEditModal(true)}>
+                    <EditButton onClick={openModal}>
                         <Edit />
                     </EditButton>
                 )}
