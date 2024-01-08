@@ -10,7 +10,7 @@ const Todo = () => {
             <TodoTimeLine>
                 <TodoList />
             </TodoTimeLine>
-            <PostingForm width="600px" height="90%" />
+            {/* <PostingForm width="600px" height="90%" /> */}
         </StyledTodo>
     );
 };

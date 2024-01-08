@@ -4,8 +4,6 @@ import styled from "styled-components";
 import ITodo from "@/api/todo/Todo";
 import TodoItem from "@/components/todo/TodoItem";
 import Edit from "@/components/icons/Edit";
-import Modal from "@/components/common/Modal";
-import { useModal } from "@/hooks/useModal";
 import Button from "../common/Button";
 
 interface TodoCardProps {
@@ -13,26 +11,46 @@ interface TodoCardProps {
 }
 
 const TodoCard = ({ todoListOfDay }: TodoCardProps) => {
-    const { open, openModal, closeModal } = useModal();
-
     const isToday = (): boolean => {
         return true;
     };
 
+    const [editingInProgress, setEditingInProgress] = useState<boolean>(false);
+    const startEdit = () => {
+        setEditingInProgress(true);
+    };
+    const FinishEdit = () => {
+        setEditingInProgress(false);
+    };
+
     return (
         <StyledTodoCard>
-            {open && (
-                <Modal open={open} closeModal={closeModal}>
-                    edit todo
-                </Modal>
-            )}
             <Header>
                 <Day>01.02 월</Day>
-                {isToday() && <Button Content={Edit} onClick={openModal} />}
+                {isToday() &&
+                    (editingInProgress ? (
+                        <Button content="저장" onClick={FinishEdit} width="17px" height="17px" />
+                    ) : (
+                        <Button
+                            content="수정"
+                            Icon={Edit}
+                            onClick={startEdit}
+                            width="17px"
+                            height="17px"
+                        />
+                    ))}
             </Header>
-            {todoListOfDay.map((todo: ITodo, idx: number) => {
-                return <TodoItem todo={todo} key={idx} />;
-            })}
+            {editingInProgress
+                ? todoListOfDay.map((todo: ITodo, idx: number) => {
+                      return (
+                          <TodoItem key={idx} todo={todo} editingInProgress={editingInProgress} />
+                      );
+                  })
+                : todoListOfDay.map((todo: ITodo, idx: number) => {
+                      return (
+                          <TodoItem key={idx} todo={todo} editingInProgress={editingInProgress} />
+                      );
+                  })}
         </StyledTodoCard>
     );
 };
@@ -58,11 +76,10 @@ const Day = styled.span`
     font-weight: bold;
 `;
 
-const EditButton = styled.button`
-    right: 13px;
-    top: 9px;
-    background-color: transparent;
-    border: none;
+const EditTodo = styled.div`
+    background-color: #e8e8e8;
+    width: 300px;
+    height: 400px;
 `;
 
 export default TodoCard;
