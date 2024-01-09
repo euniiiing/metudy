@@ -1,10 +1,11 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import ITodo from "@/api/todo/Todo";
 import Do from "@/components/icons/Do";
 import Done from "@/components/icons/Done";
 import Button from "@/components/common/Button";
+import { useUpdateTodo } from "@/queries/useUpdateTodo";
 
 interface Props {
     todo: ITodo;
@@ -12,13 +13,19 @@ interface Props {
 }
 
 const TodoItem = ({ todo, editingInProgress }: Props) => {
+    const mutation = useUpdateTodo();
+
+    const deleteItem = () => {
+        mutation.mutate();
+    };
+
     return (
         <StyledTodoItem>
             {editingInProgress ? (
                 <>
                     <Button
                         content={"휴지통"}
-                        onClick={() => {}}
+                        onClick={deleteItem}
                         width="30px"
                         height="30px"
                     ></Button>

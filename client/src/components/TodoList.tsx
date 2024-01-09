@@ -1,32 +1,38 @@
 import React from "react";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
 
 import TodoCard from "@/components/todo/TodoCard";
 import useGetMyTodo from "@/queries/useGetMyTodo";
+import { todo } from "@/store/atoms/todo";
 
 interface IProps {}
 
 const TodoList = ({}: IProps) => {
     const { data, isLoading } = useGetMyTodo();
+    const [todayTodo, setTodayTodo] = useRecoilState(todo);
 
     return (
         <TodoListLayout>
             <VLine />
             <HeaderOfMonth>JAN, 2024</HeaderOfMonth>
+            <TodoCard todoListOfDay={todayTodo} />
+            <Dot />
+            <FakeCard />
             {data?.map((todoListOfDay, day) => {
                 return (
                     <TodoCardWrapper key={day}>
                         {day % 2 === 0 ? (
                             <>
-                                <TodoCard todoListOfDay={todoListOfDay} />
-                                <Dot />
                                 <FakeCard />
+                                <Dot />
+                                <TodoCard todoListOfDay={todoListOfDay} />
                             </>
                         ) : (
                             <>
-                                <FakeCard />
-                                <Dot />
                                 <TodoCard todoListOfDay={todoListOfDay} />
+                                <Dot />
+                                <FakeCard />
                             </>
                         )}
                     </TodoCardWrapper>
